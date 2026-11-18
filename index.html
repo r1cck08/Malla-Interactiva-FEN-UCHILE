@@ -47,6 +47,14 @@
   .tab:hover { background:rgba(255,255,255,.1); color:#fff; }
   .tab.active { background:#fff; color:#1A1916; border-color:transparent; }
   .tab .soon { font-size:9px; text-transform:uppercase; letter-spacing:.5px; opacity:.7; margin-left:5px; }
+
+  .route-row { display:none; align-items:center; gap:6px; padding-left:12px; border-left:1px solid rgba(255,255,255,.25); }
+  .route-row.show { display:flex; }
+  .route-label { font-size:10.5px; color:#bbb; text-transform:uppercase; letter-spacing:.4px; margin-right:2px; }
+  .rtab { padding:5px 12px; font-size:12px; font-family:inherit; border-radius:8px; border:1.5px solid rgba(255,255,255,.25); background:transparent; color:rgba(255,255,255,.7); cursor:pointer; font-weight:500; }
+  .rtab:hover { background:rgba(255,255,255,.1); color:#fff; }
+  .rtab.active { background:#fff; color:#1A1916; border-color:transparent; }
+
   .theme-btn { padding:6px 12px; font-size:13px; font-family:inherit; border:1.5px solid rgba(255,255,255,.25); border-radius:20px; cursor:pointer; background:transparent; color:#fff; font-weight:500; }
   .theme-btn:hover { background:rgba(255,255,255,.1); }
 
@@ -56,6 +64,18 @@
   .stat-n { font-size:22px; font-weight:600; font-family:'DM Mono',monospace; }
   .stat-l { font-size:11px; color:var(--text3); text-transform:uppercase; letter-spacing:.5px; margin-top:1px; }
 
+  .stat-progress { min-width:210px; flex:1; max-width:340px; text-align:left; }
+  .progress-top { display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
+  .progress-track { height:8px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; overflow:hidden; margin-top:7px; }
+  .progress-fill { height:100%; width:0%; background:#2EAD6B; border-radius:6px; transition:width .35s ease; }
+  .reset-btn { margin-left:auto; align-self:center; padding:8px 14px; font-size:12.5px; font-family:inherit; font-weight:500; border-radius:8px; border:1.5px solid var(--red-b); background:transparent; color:var(--red); cursor:pointer; }
+  .reset-btn:hover { background:var(--red-bg); }
+  .pin-icon { position:absolute; bottom:4px; right:6px; font-size:10px; }
+  .pin-icon.implied { opacity:.5; }
+  .modal-footer .btn-pin { flex:0 0 auto; padding:9px 12px; }
+  .modal-footer .btn-danger { background:var(--red); color:#fff; border-color:transparent; }
+  .modal-footer .btn-danger:hover { background:var(--red); opacity:.85; }
+  .modal-footer button:disabled { opacity:.45; cursor:not-allowed; }
   .legend { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
   .leg { display:flex; align-items:center; gap:5px; font-size:11.5px; color:var(--text2); background:var(--surface); border:1px solid var(--border); padding:3px 9px; border-radius:20px; }
   .leg-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
@@ -84,11 +104,11 @@
 
   .modal-bg { display:none; position:fixed; inset:0; background:var(--overlay); z-index:200; align-items:center; justify-content:center; backdrop-filter:blur(3px); }
   .modal-bg.open { display:flex; }
-  .modal { background:var(--surface); border-radius:14px; border:1px solid var(--border); max-width:360px; width:calc(100% - 32px); box-shadow:0 16px 48px rgba(0,0,0,.3); overflow:hidden; }
+  .modal { background:var(--surface); border-radius:14px; border:1px solid var(--border); max-width:380px; width:calc(100% - 32px); box-shadow:0 16px 48px rgba(0,0,0,.3); overflow:hidden; }
   .modal-header { padding:18px 20px 14px; border-bottom:1px solid var(--border); }
   .modal-header h3 { font-size:15px; font-weight:600; line-height:1.3; }
   .modal-sem { font-size:12px; color:var(--text3); margin-top:3px; font-family:'DM Mono',monospace; }
-  .modal-body { padding:14px 20px; }
+  .modal-body { padding:14px 20px; max-height:55vh; overflow-y:auto; }
   .m-row { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; padding:7px 0; border-bottom:1px solid var(--border); }
   .m-row:last-child { border-bottom:none; }
   .m-label { color:var(--text3); font-size:12px; white-space:nowrap; }
@@ -103,7 +123,7 @@
   .modal-footer .btn-approve { background:var(--text); color:var(--bg); border-color:transparent; }
   .modal-footer .btn-approve:hover { opacity:.85; background:var(--text); }
 
-  @media (max-width:600px) { header { padding:14px 16px; } main { padding:14px 12px; } .header-title { font-size:16px; } }
+  @media (max-width:600px) { header { padding:14px 16px; } main { padding:14px 12px; } .header-title { font-size:16px; } .route-row { border-left:none; padding-left:0; } }
 </style>
 </head>
 <body>
@@ -118,8 +138,13 @@
       <button class="tab active" data-m="comun" onclick="setMencion('comun')">Ciclo Básico</button>
       <button class="tab" data-m="econ" onclick="setMencion('econ')">Cs. Económicas</button>
       <button class="tab" data-m="adm" onclick="setMencion('adm')">Adm. de Empresas</button>
-      <button class="tab" data-m="iicg" onclick="setMencion('iicg')">Info IICG<span class="soon">pronto</span></button>
+      <button class="tab" data-m="iicg" onclick="setMencion('iicg')">Info. IICG</button>
       <button class="tab" data-m="audi" onclick="setMencion('audi')">C. Auditor<span class="soon">pronto</span></button>
+    </div>
+    <div class="route-row" id="route-row">
+      <span class="route-label">9° y 10° sem.</span>
+      <button class="rtab active" data-r="mag" onclick="setRuta('mag')">Magíster</button>
+      <button class="rtab" data-r="pra" onclick="setRuta('pra')">Práctica Profesional</button>
     </div>
     <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☾ Oscuro</button>
   </div>
@@ -132,6 +157,11 @@
       <div class="stat"><div class="stat-n" id="s-creditos">0</div><div class="stat-l">Créditos</div></div>
       <div class="stat"><div class="stat-n" id="s-total">0</div><div class="stat-l">Total ramos</div></div>
       <div class="stat"><div class="stat-n" id="s-disponibles">0</div><div class="stat-l">Disponibles</div></div>
+      <div class="stat stat-progress">
+        <div class="progress-top"><div class="stat-n" id="s-pct">0%</div><div class="stat-l">Avance por créditos</div></div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      </div>
+      <button class="reset-btn" onclick="openReset()">↺ Reiniciar</button>
     </div>
     <div class="legend">
       <div class="leg"><div class="leg-dot" style="background:var(--c-econ-bg);border:1px solid var(--c-econ-b)"></div>Economía</div>
@@ -143,7 +173,7 @@
       <div class="leg"><div class="leg-dot" style="background:var(--c-social-bg);border:1px solid var(--c-social-b)"></div>Social/Profesional</div>
       <div class="leg"><div class="leg-dot" style="background:var(--surface2);border:1px solid var(--border2)"></div>Bloqueado 🔒</div>
     </div>
-    <p class="hint">💡 Los ramos en gris están bloqueados por prerrequisitos. Haz clic en cualquier ramo para ver detalles.</p>
+    <p class="hint">💡 Los ramos en gris están bloqueados por prerrequisitos o por créditos. Haz clic en cualquier ramo para ver detalles.</p>
     <div class="grid" id="grid"></div>
   </div>
 
@@ -160,37 +190,55 @@
     <div class="error-msg" id="error-msg"></div>
     <div class="modal-footer">
       <button onclick="closeModal()">Cerrar</button>
+      <button id="btn-pin" class="btn-pin" onclick="togglePin()" style="display:none">📌 Fijar</button>
       <button id="btn-approve" class="btn-approve" onclick="toggleApprove()">Marcar aprobado</button>
     </div>
   </div>
 </div>
 
+<div class="modal-bg" id="reset-bg" onclick="if(event.target===this)closeReset()">
+  <div class="modal">
+    <div class="modal-header"><h3>¿Reiniciar el progreso?</h3><div class="modal-sem" id="reset-sub"></div></div>
+    <div class="modal-body" id="reset-body"></div>
+    <div class="modal-footer">
+      <button onclick="closeReset()">Cancelar</button>
+      <button id="btn-reset-ok" class="btn-danger" onclick="doReset()">Sí, reiniciar</button>
+    </div>
+  </div>
+</div>
+
 <script>
-const C = (id, sem, name, cred, color, prereq, nota) => ({ id, sem, name, cred, color, prereq: prereq || [], nota });
+/* C(id, semestre, nombre, créditos, color, prerrequisitos, nota, extra)
+   extra: { min: créditos mínimos aprobados, ruta: 'mag' | 'pra' } */
+const C = (id, sem, name, cred, color, prereq, nota, extra) =>
+  Object.assign({ id, sem, name, cred, color, prereq: prereq || [], nota }, extra || {});
+
+const N120 = '(*) Requisito: 120 créditos aprobados previamente.';
+const N180 = '(***) Requisito: 180 créditos aprobados previamente.';
+const NTAL = '(**) Requisito: Taller Práctico/Social I y II aprobados.';
 
 /* ===================== CICLO BÁSICO ===================== */
 const COMUN = [
-  // 1° semestre — todos sin requisitos
   C('s1', 1,'Introducción a la Economía',6,'econ'),
   C('s2', 1,'Gestión y Empresa',6,'adm'),
   C('s3', 1,'Programación para Analítica de Datos',6,'ti',[], '(3) Se inscribe con la mitad de la cohorte en el primer semestre.'),
   C('s4', 1,'Tecnología y Sistemas de Información',6,'ti',[], '(3) Se inscribe con la mitad de la cohorte en el primer semestre.'),
   C('s5', 1,'Métodos Matemáticos I',6,'quant'),
   C('s6', 1,'Comunicación',2,'lang',[], '(3) Se inscribe con la mitad de la cohorte en el primer semestre.'),
-  // 2° semestre
+
   C('s7', 2,'Introducción a la Microeconomía',6,'econ',['s1']),
   C('s8', 2,'Gestión de Personas',6,'adm',['s2']),
   C('s9', 2,'Contabilidad',6,'adm',['s2']),
   C('s10',2,'Métodos Matemáticos II',6,'quant',['s5']),
   C('s11',2,'Inglés I',2,'lang'),
-  // 3° semestre
+
   C('s12',3,'Introducción a la Macroeconomía',6,'econ',['s1','s10']),
   C('s13',3,'Marketing',6,'adm',['s2']),
   C('s14',3,'Estadística I',6,'quant',['s5','s3']),
   C('s15',3,'Métodos Matemáticos III',6,'quant',['s10','s2']),
   C('s16',3,'Inglés II',2,'lang',['s11']),
   C('s17',3,'Introducción al Pensamiento Económico y Político',4,'social',['s1']),
-  // 4° semestre
+
   C('s18',4,'Economía Aplicada',6,'econ',['s7','s12']),
   C('s19',4,'Finanzas',6,'adm',['s9','s10','s14']),
   C('s20',4,'Razonamiento Basado en Datos',6,'ti',['s3','s4','s14']),
@@ -199,49 +247,47 @@ const COMUN = [
   C('s23',4,'Inglés III',2,'lang',['s16']),
 ];
 
-/* ===================== CS. ECONÓMICAS ===================== */
+/* ===================== CS. ECONÓMICAS (5° a 8°) ===================== */
 const ECON = [
-  // 5°
   C('e1', 5,'Métodos Cuantitativos I',6,'quant',['s20','s21','s22']),
   C('e2', 5,'Macroeconomía I',6,'econ',['s12']),
   C('e3', 5,'Microeconomía I',6,'econ',['s7','s18']),
   C('e4', 5,'Historia Económica',6,'econ',['s7','s12']),
   C('e5', 5,'Inglés IV',4,'lang',['s23']),
   C('e6', 5,'Comunicación I',2,'lang',['s6']),
-  // 6°
-  C('e7', 6,'Electivo de Negocios para la Economía (*)',6,'elec',[], '(*) Requisito: 120 créditos aprobados previamente.'),
+
+  C('e7', 6,'Electivo de Negocios para la Economía (*)',6,'elec',[], N120, {min:120}),
   C('e8', 6,'Métodos Cuantitativos II',6,'quant',['e1']),
   C('e9', 6,'Macroeconomía II',6,'econ',['e2']),
   C('e10',6,'Microeconomía II',6,'econ',['e3']),
   C('e11',6,'Taller de Política Pública',2,'social',['s18','e6']),
   C('e12',6,'Electivo Entorno Social I',2,'elec'),
   C('e13',6,'Libre I',2,'elec'),
-  // 7°
-  C('e14',7,'Taller Práctico Profesional/Social I (*)',6,'social',[], '(*) Requisito: 120 créditos aprobados previamente.'),
-  C('e15',7,'Taller Práctico Profesional/Social II (*)',6,'social',[], '(*) Requisito: 120 créditos aprobados previamente.'),
+
+  C('e14',7,'Taller Práctico Profesional/Social I (*)',6,'social',[], N120, {min:120}),
+  C('e15',7,'Taller Práctico Profesional/Social II (*)',6,'social',[], N120, {min:120}),
   C('e16',7,'Macroeconomía III',6,'econ',['e9']),
   C('e17',7,'Microeconomía III',6,'econ',['e10']),
   C('e18',7,'Electivo Entorno Social II',2,'elec'),
   C('e19',7,'Libre II',2,'elec'),
-  // 8°
-  C('e20',8,'Electivo Profundización I (*)',6,'elec',[], '(*) Requisito: 120 créditos aprobados previamente.'),
-  C('e21',8,'Electivo Profundización II (*)',6,'elec',[], '(*) Requisito: 120 créditos aprobados previamente.'),
-  C('e22',8,'Electivo Profundización III (*)',6,'elec',[], '(*) Requisito: 120 créditos aprobados previamente.'),
+
+  C('e20',8,'Electivo Profundización I (*)',6,'elec',[], N120, {min:120}),
+  C('e21',8,'Electivo Profundización II (*)',6,'elec',[], N120, {min:120}),
+  C('e22',8,'Electivo Profundización III (*)',6,'elec',[], N120, {min:120}),
   C('e23',8,'Macroeconomía IV',6,'econ',['e9','e1','e11']),
   C('e24',8,'Microeconomía IV',6,'econ',['e10','e1','e11']),
   C('e25',8,'Libre III',2,'elec'),
 ];
 
-/* ===================== ADM. DE EMPRESAS ===================== */
+/* ===================== ADM. DE EMPRESAS (5° a 8°) ===================== */
 const ADM = [
-  // 5°
   C('a1', 5,'Gestión de Personas I',6,'adm',['s8']),
   C('a2', 5,'Métodos Cuantitativos I',6,'quant',['s21','s22','s20','s4']),
   C('a3', 5,'Contabilidad Empresarial I',6,'adm',['s9']),
   C('a4', 5,'Economía para los Negocios',6,'econ',['s19','s18']),
   C('a5', 5,'Inglés IV',4,'lang',['s23']),
   C('a6', 5,'Comunicación I',2,'lang',['s6']),
-  // 6°
+
   C('a7', 6,'Marketing I',6,'adm',['s13','a2']),
   C('a8', 6,'Taller de Negocios',2,'adm',['s9','s8','s4']),
   C('a9', 6,'Negocios I',6,'adm',['s13','s19','a5']),
@@ -249,49 +295,154 @@ const ADM = [
   C('a11',6,'Contabilidad Empresarial II',6,'adm',['a3']),
   C('a12',6,'Electivo Entorno Social I',2,'elec'),
   C('a13',6,'Libre I',2,'elec'),
-  // 7°
-  C('a14',7,'Taller Práctico Profesional/Social I (*)',6,'social',[], '(*) Requisito: 120 créditos aprobados previamente.'),
-  C('a15',7,'Taller Práctico Profesional/Social II (*)',6,'social',[], '(*) Requisito: 120 créditos aprobados previamente.'),
+
+  C('a14',7,'Taller Práctico Profesional/Social I (*)',6,'social',[], N120, {min:120}),
+  C('a15',7,'Taller Práctico Profesional/Social II (*)',6,'social',[], N120, {min:120}),
   C('a16',7,'Negocios II',6,'adm',['s19','s13']),
-  C('a17',7,'Electivo Profundización I (*)',6,'elec',[], '(*) Requisito: 120 créditos aprobados previamente.'),
+  C('a17',7,'Electivo Profundización I (*)',6,'elec',[], N120, {min:120}),
   C('a18',7,'Electivo Entorno Social II',2,'elec'),
   C('a19',7,'Libre II',2,'elec'),
-  // 8°
-  C('a20',8,'Gestión de Personas II (**)',6,'adm',['a1'], '(**) Requisito: Taller Práctico/Social I y II aprobados.'),
-  C('a21',8,'Marketing II (**)',6,'adm',['a7'], '(**) Requisito: Taller Práctico/Social I y II aprobados.'),
-  C('a22',8,'Negocios III (**)',6,'adm',['a8','a1','a9','a16','a4','a10'], '(**) Requisito: Taller Práctico/Social I y II aprobados.'),
-  C('a23',8,'Finanzas II (**)',6,'adm',['a10','a11'], '(**) Requisito: Taller Práctico/Social I y II aprobados.'),
-  C('a24',8,'Electivo Profundización II (*)',6,'elec',[], '(*) Requisito: 120 créditos aprobados previamente.'),
+
+  C('a20',8,'Gestión de Personas II (**)',6,'adm',['a1','a14','a15'], NTAL),
+  C('a21',8,'Marketing II (**)',6,'adm',['a7','a14','a15'], NTAL),
+  C('a22',8,'Negocios III (**)',6,'adm',['a8','a1','a9','a16','a4','a10','a14','a15'], NTAL),
+  C('a23',8,'Finanzas II (**)',6,'adm',['a10','a11','a14','a15'], NTAL),
+  C('a24',8,'Electivo Profundización II (*)',6,'elec',[], N120, {min:120}),
   C('a25',8,'Libre III',2,'elec'),
 ];
+
+/* ===================== 9° y 10° (Cs. Económicas y Adm.): Magíster o Práctica ===================== */
+const ROM = ['I','II','III','IV','V','VI','VII','VIII','IX','X'];
+function rutaCourses(p, tallerCourse) {
+  const out = [];
+  // Ruta Magíster: 9° = I a V, 10° = VI a X
+  for (let i = 0; i < 10; i++)
+    out.push(C(p+'m'+(i+1), i < 5 ? 9 : 10, `Electivo Magíster ${ROM[i]} (***)`, 6, 'elec', [], N180, {min:180, ruta:'mag'}));
+  // Ruta Práctica: 9° = Electivo Magíster/Profesional I a V, 10° = Práctica Profesional I a IV + taller
+  for (let i = 0; i < 5; i++)
+    out.push(C(p+'e'+(i+1), 9, `Electivo Magíster ${ROM[i]} o Electivo Profesional ${ROM[i]} (***)`, 6, 'elec', [], N180, {min:180, ruta:'pra'}));
+  for (let i = 0; i < 4; i++)
+    out.push(C(p+'p'+(i+1), 10, `Práctica Profesional ${ROM[i]} (***)`, 6, 'social', [], N180, {min:180, ruta:'pra'}));
+  out.push(tallerCourse);
+  return out;
+}
+const ECON_RUTA = rutaCourses('em',
+  C('etp', 10, 'Taller de Práctica Profesional (****)', 6, 'social', ['e9','e10','e8'],
+    '(****) Requisito: tener aprobadas Macroeconomía II, Microeconomía II y Métodos Cuantitativos II.', {ruta:'pra'}));
+const ADM_RUTA = rutaCourses('am',
+  C('atp', 10, 'Taller Integrando los Negocios (****)', 6, 'social', ['a22','a21','a23','a20'],
+    '(****) Requisito: tener aprobadas Negocios III, Marketing II, Finanzas II y Gestión de Personas II.', {ruta:'pra'}));
+
+/* ===================== INFO. IICG (5° a 10°) ===================== */
+const NIICG = '(*) Requisito: 180 créditos aprobados previamente.';
+const IICG = [
+  // 5°
+  C('i1', 5,'Métodos Cuantitativos I',6,'quant',['s20','s21','s15']),
+  C('i2', 5,'Taller de Integración',2,'social',['s19','s20','s21','s22']),
+  C('i3', 5,'Contabilidad Financiera',6,'econ',['s9','s15']),
+  C('i4', 5,'Estrategia y Presupuestos',6,'adm',['s9','s19']),
+  C('i5', 5,'Sistema de Administración de Bases de Datos',6,'ti',['s20']),
+  C('i6', 5,'Inglés IV',2,'lang',['s23']),
+  C('i7', 5,'Libre I',2,'elec'),
+  // 6°
+  C('i8', 6,'Investigación Operativa',6,'quant',['s20','s15']),
+  C('i9', 6,'Análisis Contable',6,'econ',['i3','s19']),
+  C('i10',6,'Planificación y Diseño Organizacional',6,'adm',['s8','i2','i4']),
+  C('i11',6,'Sistemas de Aplicaciones',6,'ti',['s20']),
+  C('i12',6,'Inglés V',2,'lang',['i6']),
+  C('i13',6,'Derecho y Empresa',2,'social',['s17']),
+  C('i14',6,'Libre II',2,'elec'),
+  // 7°
+  C('i15',7,'Machine Learning',6,'quant',['i1','i8']),
+  C('i16',7,'Reporting & Performance Analytics',4,'social',['i1','i11','i10','i9']),
+  C('i17',7,'Análisis Financiero e Inversiones',6,'econ',['i1','i9']),
+  C('i18',7,'Control de Gestión I',6,'adm',['i10']),
+  C('i19',7,'Transformación Digital',6,'ti',['i11']),
+  C('i20',7,'Libre III',2,'elec'),
+  // 8°
+  C('i21',8,'Toma de Decisiones Bajo Incertidumbre',6,'quant',['i15','i8']),
+  C('i22',8,'Juegos y Estrategia',6,'quant',['i8','s18']),
+  C('i23',8,'Gestión Financiera Corporativa',6,'econ',['i17']),
+  C('i24',8,'Control de Gestión II',6,'adm',['i18']),
+  C('i25',8,'Gestión de Procesos de Negocios',6,'ti',['i19','i8']),
+  // 9°
+  C('i26',9,'Curso de Integración Profesional',8,'social',['i21','i22','i23','i24','i25']),
+  C('i27',9,'Electivo Profesional I ó Electivo Magíster I (*)',6,'elec',[], NIICG, {min:180}),
+  C('i28',9,'Electivo Profesional II ó Electivo Magíster II (*)',6,'elec',[], NIICG, {min:180}),
+  C('i29',9,'Electivo Profesional III ó Electivo Magíster III (*)',6,'elec',[], NIICG, {min:180}),
+  C('i30',9,'Electivo Profesional IV ó Electivo Magíster IV (*)',6,'elec',[], NIICG, {min:180}),
+  // 10°
+  C('i31',10,'Práctica Profesional (**)',16,'social',['i26'],
+    '(**) Requisito: mínimo 240 créditos aprobados más el Curso de Integración Profesional.', {min:240}),
+  C('i32',10,'Electivo Profesional V ó Electivo Magíster V (*)',6,'elec',[], NIICG, {min:180}),
+  C('i33',10,'Electivo Profesional VI ó Electivo Magíster VI (*)',6,'elec',[], NIICG, {min:180}),
+];
+
+/* ===================== Estructura ===================== */
+const ECON_ALL = [...ECON, ...ECON_RUTA];
+const ADM_ALL  = [...ADM, ...ADM_RUTA];
+const MEN_ALL  = { econ: ECON_ALL, adm: ADM_ALL, iicg: IICG };
+COMUN.forEach(c => c.men = 'comun');
+ECON_ALL.forEach(c => c.men = 'econ');
+ADM_ALL.forEach(c => c.men = 'adm');
+IICG.forEach(c => c.men = 'iicg');
 
 const COLOR_MAP = ['econ','adm','quant','lang','elec','ti','social'].reduce((o,k)=>{
   o[k] = { bg:`var(--c-${k}-bg)`, b:`var(--c-${k}-b)`, t:`var(--c-${k}-t)` }; return o;
 }, {});
 const AREA_LABEL = { econ:'Economía', adm:'Administración', quant:'Cuantitativo', lang:'Idioma / Comunicación', elec:'Electivo / Libre', ti:'TI / Datos', social:'Social / Profesional' };
-const SOON_TEXT = {
-  iicg: 'La malla de Ingeniería en Información y Control de Gestión (IICG) estará disponible muy pronto.',
-  audi: 'La malla de Contador Auditor estará disponible muy pronto.'
-};
+const SOON_TEXT = { audi: 'La malla de Contador Auditor estará disponible muy pronto.' };
 
 let mencion = 'comun';
+let ruta = 'mag';
 let approved = [];
+let pinned = [];   // ramos fijados directamente por el usuario
 let selectedId = null;
+const PIN_STORE = 'malla_fen_pinned';
 const STORE = 'malla_fen_v2';
 
-function allCourses() { return [...COMUN, ...ECON, ...ADM]; }
+function allCourses() { return [...COMUN, ...ECON_ALL, ...ADM_ALL, ...IICG]; }
 function getCourses() {
   if (mencion === 'comun') return COMUN;
-  if (mencion === 'econ') return [...COMUN, ...ECON];
-  return [...COMUN, ...ADM];
+  if (mencion === 'econ')  return [...COMUN, ...ECON, ...ECON_RUTA.filter(c => c.ruta === ruta)];
+  if (mencion === 'adm')   return [...COMUN, ...ADM,  ...ADM_RUTA.filter(c => c.ruta === ruta)];
+  return [...COMUN, ...IICG];
 }
-function isUnlocked(c) { return c.prereq.every(p => approved.includes(p)); }
+
+/* Créditos aprobados dentro del alcance del ramo (ciclo básico + su mención) */
+function creditsFor(c) {
+  const list = c.men === 'comun' ? COMUN : [...COMUN, ...MEN_ALL[c.men]];
+  return list.filter(x => approved.includes(x.id)).reduce((a, x) => a + x.cred, 0);
+}
+function creditsOk(c) { return !c.min || creditsFor(c) >= c.min; }
+function prereqOk(c)  { return c.prereq.every(p => approved.includes(p)); }
+function isUnlocked(c) { return prereqOk(c) && creditsOk(c); }
 function getMissing(c) {
   const all = allCourses();
   return c.prereq.filter(p => !approved.includes(p)).map(p => all.find(x => x.id === p).name);
 }
 
-/* Quita ramos aprobados cuyos requisitos ya no se cumplen (consistencia) */
+/* Fijados por arrastre: todos los prerrequisitos (en cadena) de un ramo fijado.
+   Devuelve { idRamo: [nombres de los ramos fijados que lo necesitan] } */
+function pinMaps() {
+  const all = allCourses();
+  const implied = {};
+  pinned.forEach(pid => {
+    const root = all.find(x => x.id === pid);
+    if (!root) return;
+    const stack = [...root.prereq], seen = new Set();
+    while (stack.length) {
+      const id = stack.pop();
+      if (seen.has(id)) continue;
+      seen.add(id);
+      (implied[id] = implied[id] || []).push(root.name);
+      stack.push(...all.find(x => x.id === id).prereq);
+    }
+  });
+  return implied;
+}
+
+/* Si se quita un ramo, se quitan los aprobados que dependían de él (solo prerrequisitos de ramos) */
 function cleanApproved() {
   const all = allCourses();
   let changed = true;
@@ -299,7 +450,7 @@ function cleanApproved() {
     changed = false;
     approved = approved.filter(id => {
       const c = all.find(x => x.id === id);
-      const ok = c && c.prereq.every(p => approved.includes(p));
+      const ok = c && prereqOk(c);
       if (!ok) changed = true;
       return ok;
     });
@@ -307,7 +458,14 @@ function cleanApproved() {
 }
 
 function save() { try { localStorage.setItem(STORE, JSON.stringify(approved)); } catch(e) {} }
-function load() { try { approved = JSON.parse(localStorage.getItem(STORE) || '[]'); } catch(e) { approved = []; } cleanApproved(); }
+function savePins() { try { localStorage.setItem(PIN_STORE, JSON.stringify(pinned)); } catch(e) {} }
+function load() {
+  try { approved = JSON.parse(localStorage.getItem(STORE) || '[]'); } catch(e) { approved = []; }
+  try { const r = localStorage.getItem('malla_fen_ruta'); if (r === 'mag' || r === 'pra') ruta = r; } catch(e) {}
+  try { pinned = JSON.parse(localStorage.getItem(PIN_STORE) || '[]'); } catch(e) { pinned = []; }
+  cleanApproved();
+  pinned = pinned.filter(id => approved.includes(id));
+}
 
 /* ---------- Tema ---------- */
 function applyTheme(t) {
@@ -326,20 +484,35 @@ function initTheme() {
   applyTheme(t);
 }
 
-/* ---------- Pestañas ---------- */
+/* ---------- Pestañas y ruta ---------- */
 function setMencion(m) {
   mencion = m;
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.m === m));
-  const soon = (m === 'iicg' || m === 'audi');
+  document.getElementById('route-row').classList.toggle('show', m === 'econ' || m === 'adm');
+  const soon = (m === 'audi');
   document.getElementById('malla-view').style.display = soon ? 'none' : 'block';
   document.getElementById('soon-view').style.display = soon ? 'block' : 'none';
   if (soon) document.getElementById('soon-text').textContent = SOON_TEXT[m];
   else render();
 }
+function setRuta(r) {
+  ruta = r;
+  try { localStorage.setItem('malla_fen_ruta', r); } catch(e) {}
+  syncRutaButtons();
+  render();
+}
+function syncRutaButtons() {
+  document.querySelectorAll('.rtab').forEach(b => b.classList.toggle('active', b.dataset.r === ruta));
+}
 
-function semLabel(s) { return s <= 4 ? `${s}° Sem · Ciclo Básico` : `${s}° Sem · Ciclo Disciplinar`; }
+function semLabel(s) {
+  if (s <= 4) return `${s}° Sem · Ciclo Básico`;
+  if (s <= 8) return `${s}° Sem · Ciclo Disciplinar`;
+  return `${s}° Sem · Ciclo Profesional`;
+}
 
 function render() {
+  const implied = pinMaps();
   const courses = getCourses();
   const sems = [...new Set(courses.map(c => c.sem))].sort((a,b) => a-b);
   const grid = document.getElementById('grid');
@@ -350,12 +523,14 @@ function render() {
     col.innerHTML = `<div class="sem-head">${semLabel(s)}</div>`;
     courses.filter(c => c.sem === s).forEach(c => {
       const unlocked = isUnlocked(c), isApp = approved.includes(c.id), cl = COLOR_MAP[c.color];
+      const dPin = pinned.includes(c.id), iPin = !dPin && !!implied[c.id];
       const el = document.createElement('div');
       el.className = 'course' + (isApp ? ' approved' : '') + (!unlocked ? ' locked' : '');
       if (unlocked) { el.style.background = cl.bg; el.style.borderColor = cl.b; }
       const col_t = unlocked ? cl.t : '';
       el.innerHTML = `<div class="cname" style="color:${col_t}">${c.name}</div><div class="ccred" style="color:${col_t}">${c.cred} cr.</div>` +
-        (isApp ? '<div class="badge">✓</div>' : '') + (!unlocked ? '<div class="lock-icon">🔒</div>' : '');
+        (isApp ? '<div class="badge">✓</div>' : '') + (!unlocked ? '<div class="lock-icon">🔒</div>' : '') +
+        ((dPin || iPin) ? `<div class="pin-icon${dPin ? '' : ' implied'}">📌</div>` : '');
       el.addEventListener('click', () => openModal(c.id));
       col.appendChild(el);
     });
@@ -371,6 +546,11 @@ function updateStats() {
   document.getElementById('s-creditos').textContent = appList.reduce((a,c) => a + c.cred, 0);
   document.getElementById('s-total').textContent = courses.length;
   document.getElementById('s-disponibles').textContent = courses.filter(c => isUnlocked(c) && !approved.includes(c.id)).length;
+  const totalCred = courses.reduce((a,c) => a + c.cred, 0);
+  const doneCred  = appList.reduce((a,c) => a + c.cred, 0);
+  const pct = totalCred ? Math.floor(doneCred * 100 / totalCred) : 0;
+  document.getElementById('s-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
 }
 
 function openModal(id) {
@@ -379,14 +559,26 @@ function openModal(id) {
   document.getElementById('m-name').textContent = c.name;
   document.getElementById('m-sem').textContent = `Semestre ${c.sem}  ·  ${c.cred} créditos`;
   document.getElementById('error-msg').classList.remove('show');
+  const unlocks = getCourses().filter(x => x.prereq.includes(c.id)).map(x => x.name);
   const rows = c.prereq.map(pid => {
     const p = all.find(x => x.id === pid), ok = approved.includes(pid);
     return `<span class="${ok ? 'prereq-ok' : 'prereq-no'}">${p.name} ${ok ? '✓' : '✗'}</span>`;
   });
+  if (c.min) {
+    const have = creditsFor(c), ok = have >= c.min;
+    rows.push(`<span class="${ok ? 'prereq-ok' : 'prereq-no'}">${c.min} créditos aprobados (llevas ${have}) ${ok ? '✓' : '✗'}</span>`);
+  }
   let html = `<div class="m-row"><span class="m-label">Área</span><span class="m-val">${AREA_LABEL[c.color]}</span></div>
-    <div class="m-row"><span class="m-label">Prerrequisitos</span><span class="m-val">${rows.length ? rows.join('<br>') : '— Ninguno'}</span></div>`;
+    <div class="m-row"><span class="m-label">Prerrequisitos</span><span class="m-val">${rows.length ? rows.join('<br>') : '— Ninguno'}</span></div>
+    <div class="m-row"><span class="m-label">Desbloqueas</span><span class="m-val">${unlocks.length ? unlocks.join('<br>') : '— Ninguno'}</span></div>`;
   if (c.nota) html += `<div class="m-row"><span class="m-label">Nota</span><span class="m-val">${c.nota}</span></div>`;
+  const impliedMap = pinMaps();
+  if (pinned.includes(id)) html += `<div class="m-row"><span class="m-label">Fijado</span><span class="m-val">📌 Fijado: el reinicio no lo afecta</span></div>`;
+  else if (impliedMap[id]) html += `<div class="m-row"><span class="m-label">Fijado</span><span class="m-val">📌 Fijado por arrastre (requisito de ${impliedMap[id].join(', ')})</span></div>`;
   document.getElementById('m-body').innerHTML = html;
+  const pb = document.getElementById('btn-pin');
+  pb.style.display = approved.includes(id) ? '' : 'none';
+  pb.textContent = pinned.includes(id) ? '📌 Desfijar' : '📌 Fijar';
   document.getElementById('btn-approve').textContent = approved.includes(id) ? 'Quitar aprobado' : 'Marcar aprobado';
   document.getElementById('modal-bg').classList.add('open');
 }
@@ -397,24 +589,80 @@ function toggleApprove() {
   const c = allCourses().find(x => x.id === selectedId);
   if (!approved.includes(selectedId)) {
     const missing = getMissing(c);
-    if (missing.length) {
+    const shortCred = !creditsOk(c);
+    if (missing.length || shortCred) {
+      let msg = '<strong>Error: no cumples los requisitos de este ramo.</strong>';
+      if (missing.length) msg += `<br>Te falta aprobar: ${missing.map(n => `<em>${n}</em>`).join(', ')}.`;
+      if (shortCred) msg += `<br>Te faltan créditos: llevas ${creditsFor(c)} de ${c.min} requeridos.`;
       const err = document.getElementById('error-msg');
-      err.innerHTML = `<strong>Error: no has aprobado el/los ramo/s requisito.</strong><br>Te falta aprobar: ${missing.map(n => `<em>${n}</em>`).join(', ')}.`;
+      err.innerHTML = msg;
       err.classList.add('show');
       return;
     }
     approved.push(selectedId);
   } else {
+    const impliedMap = pinMaps();
+    if (pinned.includes(selectedId) || impliedMap[selectedId]) {
+      const err = document.getElementById('error-msg');
+      err.innerHTML = pinned.includes(selectedId)
+        ? '<strong>Este ramo está fijado.</strong><br>Primero desfíjalo para poder quitarlo como aprobado.'
+        : `<strong>Este ramo está fijado por arrastre.</strong><br>Es requisito de <em>${impliedMap[selectedId].join(', ')}</em>, que está fijado. Primero desfija ese ramo.`;
+      err.classList.add('show');
+      return;
+    }
     approved.splice(approved.indexOf(selectedId), 1);
-    cleanApproved(); // si se quita un ramo, se quitan los que dependían de él
+    cleanApproved();
   }
   save(); render(); openModal(selectedId);
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+function togglePin() {
+  if (!selectedId || !approved.includes(selectedId)) return;
+  const i = pinned.indexOf(selectedId);
+  if (i >= 0) pinned.splice(i, 1); else pinned.push(selectedId);
+  savePins(); render(); openModal(selectedId);
+}
+
+/* ---------- Reset (solo la vista activa; respeta los fijados) ---------- */
+const VIEW_NAME = { comun:'Ciclo Básico', econ:'Cs. Económicas', adm:'Adm. de Empresas', iicg:'Info. IICG' };
+function scopeList() { return mencion === 'comun' ? COMUN : [...COMUN, ...MEN_ALL[mencion]]; }
+function resettable() {
+  const implied = pinMaps();
+  return scopeList().filter(c => approved.includes(c.id) && !pinned.includes(c.id) && !implied[c.id]);
+}
+function openReset() {
+  const list = resettable();
+  const implied = pinMaps();
+  const kept = scopeList().filter(c => approved.includes(c.id) && (pinned.includes(c.id) || implied[c.id])).length;
+  document.getElementById('reset-sub').textContent = VIEW_NAME[mencion] + (mencion === 'comun' ? '' : ' (incluye ciclo básico)');
+  const ok = document.getElementById('btn-reset-ok');
+  let html;
+  if (!list.length) {
+    html = `<div class="m-row"><span class="m-val" style="text-align:left">No hay ramos aprobados que reiniciar en esta vista${kept ? ` (los ${kept} aprobados están fijados 📌)` : ''}.</span></div>`;
+    ok.disabled = true;
+  } else {
+    html = `<div class="m-row"><span class="m-label">Se quitarán</span><span class="m-val"><strong>${list.length}</strong> ramos aprobados</span></div>
+      <div class="m-row"><span class="m-label">Se conservan</span><span class="m-val">${kept} ramos fijados 📌</span></div>
+      <div class="m-row"><span class="m-val" style="text-align:left;color:var(--text2);font-size:12px">Los ramos del ciclo básico se comparten con las demás menciones, y también se quitarán los ramos no fijados que dependan de ellos. Esta acción no se puede deshacer.</span></div>`;
+    ok.disabled = false;
+  }
+  document.getElementById('reset-body').innerHTML = html;
+  document.getElementById('reset-bg').classList.add('open');
+}
+function closeReset() { document.getElementById('reset-bg').classList.remove('open'); }
+function doReset() {
+  const ids = new Set(resettable().map(c => c.id));
+  approved = approved.filter(id => !ids.has(id));
+  cleanApproved();
+  pinned = pinned.filter(id => approved.includes(id));
+  save(); savePins(); render(); closeReset();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeReset(); } });
 
 initTheme();
 load();
+syncRutaButtons();
 render();
 </script>
 </body>
