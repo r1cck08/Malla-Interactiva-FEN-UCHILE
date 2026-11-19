@@ -19,6 +19,8 @@
     --c-elec-bg:#D4EDAA;  --c-elec-b:#5E9820;  --c-elec-t:#1A3400;
     --c-ti-bg:#D8D5FB;    --c-ti-b:#4C44B8;    --c-ti-t:#1A166A;
     --c-social-bg:#FAC8D8;--c-social-b:#9B2D52;--c-social-t:#3D0A1E;
+    --c-conta-bg:#B3EEF4; --c-conta-b:#1699A8; --c-conta-t:#053C44;
+    --c-aud-bg:#E6D3BC;   --c-aud-b:#A47A44;   --c-aud-t:#3E2A10;
   }
   [data-theme="dark"] {
     --bg:#121211; --surface:#1C1C1A; --surface2:#262624; --border:#36352F; --border2:#4A4840;
@@ -33,6 +35,8 @@
     --c-elec-bg:#2A3E10;  --c-elec-b:#8BC34A;  --c-elec-t:#DDF0BD;
     --c-ti-bg:#26225A;    --c-ti-b:#7F77E0;    --c-ti-t:#E0DEFC;
     --c-social-bg:#4A1A2D;--c-social-b:#D6618A;--c-social-t:#FBD8E4;
+    --c-conta-bg:#0F3F47; --c-conta-b:#3CC4D4; --c-conta-t:#C9F4F9;
+    --c-aud-bg:#4A3A22;   --c-aud-b:#C99A55;   --c-aud-t:#F3E3C9;
   }
 
   * { box-sizing:border-box; margin:0; padding:0; }
@@ -68,7 +72,7 @@
   .progress-top { display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
   .progress-track { height:8px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; overflow:hidden; margin-top:7px; }
   .progress-fill { height:100%; width:0%; background:#2EAD6B; border-radius:6px; transition:width .35s ease; }
-  .reset-btn { margin-left:auto; align-self:center; padding:8px 14px; font-size:12.5px; font-family:inherit; font-weight:500; border-radius:8px; border:1.5px solid var(--red-b); background:transparent; color:var(--red); cursor:pointer; }
+  .reset-btn { align-self:center; padding:8px 14px; font-size:12.5px; font-family:inherit; font-weight:500; border-radius:8px; border:1.5px solid var(--red-b); background:transparent; color:var(--red); cursor:pointer; }
   .reset-btn:hover { background:var(--red-bg); }
   .pin-icon { position:absolute; bottom:4px; right:6px; font-size:10px; }
   .pin-icon.implied { opacity:.5; }
@@ -79,7 +83,36 @@
   .legend { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
   .leg { display:flex; align-items:center; gap:5px; font-size:11.5px; color:var(--text2); background:var(--surface); border:1px solid var(--border); padding:3px 9px; border-radius:20px; }
   .leg-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
-  .hint { font-size:12px; color:var(--text3); margin-bottom:14px; }
+  .undo-btn { margin-left:auto; align-self:center; padding:8px 14px; font-size:12.5px; font-family:inherit; font-weight:500; border-radius:8px; border:1.5px solid var(--border2); background:var(--surface); color:var(--text); cursor:pointer; }
+  .undo-btn:hover:not(:disabled) { background:var(--surface2); }
+  .undo-btn:disabled { opacity:.4; cursor:not-allowed; }
+  .hint { font-size:12px; color:var(--text3); margin-bottom:12px; }
+  .search-row { display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap; }
+  .search-input { flex:1; min-width:200px; max-width:380px; padding:9px 12px; font-size:13px; font-family:inherit; background:var(--surface); color:var(--text); border:1px solid var(--border2); border-radius:8px; outline:none; }
+  .search-input:focus { border-color:var(--text2); }
+  .search-count { font-size:12px; color:var(--text3); }
+  .course.dim { opacity:.18; }
+  .course.match { box-shadow:0 0 0 2px var(--text); }
+  .sem-head { cursor:pointer; user-select:none; }
+  .sem-head:hover { background:var(--surface2); }
+  .sem-col.collapsed { width:46px; }
+  .sem-col.collapsed .sem-head { padding:5px 2px; font-size:11px; }
+  .mini { width:26px; height:26px; border-radius:6px; margin:0 auto 5px; background:var(--surface2); border:1.5px solid var(--border2); cursor:pointer; transition:transform .12s; }
+  .mini:hover { transform:scale(1.12); }
+  .mini.done { background:#2EAD6B; border-color:#23895a; }
+  .mini.dim { opacity:.2; }
+  .mini.match { box-shadow:0 0 0 2px var(--text); }
+  .sem-head { position:relative; }
+  .sem-col:not(.collapsed) .sem-head { padding-right:18px; }
+  .chev { position:absolute; right:6px; top:50%; transform:translateY(-50%); font-size:9px; opacity:.6; }
+  .modal.wide { max-width:560px; }
+  .help-item { display:flex; gap:12px; padding:11px 0; border-bottom:1px solid var(--border); }
+  .help-item:last-of-type { border-bottom:none; }
+  .help-ico { font-size:18px; width:26px; flex-shrink:0; text-align:center; line-height:1.3; }
+  .help-t { font-size:13px; font-weight:600; margin-bottom:3px; }
+  .help-d { font-size:12.5px; color:var(--text2); line-height:1.6; }
+  .help-foot { font-size:12px; color:var(--text3); text-align:center; margin-top:10px; }
+  .foot { margin:6px 24px 28px; padding:14px 8px 0; border-top:1px solid var(--border); font-size:12px; line-height:1.6; color:var(--text3); text-align:center; }
 
   .grid { display:flex; gap:10px; overflow-x:auto; padding-bottom:12px; }
   .grid::-webkit-scrollbar { height:6px; }
@@ -139,13 +172,14 @@
       <button class="tab" data-m="econ" onclick="setMencion('econ')">Cs. Económicas</button>
       <button class="tab" data-m="adm" onclick="setMencion('adm')">Adm. de Empresas</button>
       <button class="tab" data-m="iicg" onclick="setMencion('iicg')">Info. IICG</button>
-      <button class="tab" data-m="audi" onclick="setMencion('audi')">C. Auditor<span class="soon">pronto</span></button>
+      <button class="tab" data-m="audi" onclick="setMencion('audi')">C. Auditor</button>
     </div>
     <div class="route-row" id="route-row">
       <span class="route-label">9° y 10° sem.</span>
       <button class="rtab active" data-r="mag" onclick="setRuta('mag')">Magíster</button>
       <button class="rtab" data-r="pra" onclick="setRuta('pra')">Práctica Profesional</button>
     </div>
+    <button class="theme-btn" onclick="openHelp()">❓ Cómo usar</button>
     <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☾ Oscuro</button>
   </div>
 </header>
@@ -161,6 +195,7 @@
         <div class="progress-top"><div class="stat-n" id="s-pct">0%</div><div class="stat-l">Avance por créditos</div></div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
       </div>
+      <button class="undo-btn" id="undo-btn" onclick="undo()" disabled>↶ Deshacer</button>
       <button class="reset-btn" onclick="openReset()">↺ Reiniciar</button>
     </div>
     <div class="legend">
@@ -171,9 +206,15 @@
       <div class="leg"><div class="leg-dot" style="background:var(--c-elec-bg);border:1px solid var(--c-elec-b)"></div>Electivo/Libre</div>
       <div class="leg"><div class="leg-dot" style="background:var(--c-ti-bg);border:1px solid var(--c-ti-b)"></div>TI/Datos</div>
       <div class="leg"><div class="leg-dot" style="background:var(--c-social-bg);border:1px solid var(--c-social-b)"></div>Social/Profesional</div>
+      <div class="leg leg-audi" style="display:none"><div class="leg-dot" style="background:var(--c-conta-bg);border:1px solid var(--c-conta-b)"></div>Contabilidad</div>
+      <div class="leg leg-audi" style="display:none"><div class="leg-dot" style="background:var(--c-aud-bg);border:1px solid var(--c-aud-b)"></div>Auditoría/Tributación</div>
       <div class="leg"><div class="leg-dot" style="background:var(--surface2);border:1px solid var(--border2)"></div>Bloqueado 🔒</div>
     </div>
-    <p class="hint">💡 Los ramos en gris están bloqueados por prerrequisitos o por créditos. Haz clic en cualquier ramo para ver detalles.</p>
+    <p class="hint">💡 Los ramos en gris están bloqueados por prerrequisitos o por créditos. Haz clic en un ramo para ver detalles, o en el nombre de un semestre para reducirlo.</p>
+    <div class="search-row">
+      <input type="search" id="search" class="search-input" placeholder="🔍 Buscar ramo… (ej. Finanzas, Inglés)" oninput="render()" autocomplete="off">
+      <span class="search-count" id="search-count"></span>
+    </div>
     <div class="grid" id="grid"></div>
   </div>
 
@@ -182,6 +223,10 @@
     <p id="soon-text"></p>
   </div>
 </main>
+
+<footer class="foot">
+  Proyecto independiente creado por un mechón de Ingeniería Comercial (FEN UChile) como herramienta de apoyo para estudiantes, basado en la malla 2026 para revisar prerrequisitos, créditos y rutas. No reemplaza los canales ni certificaciones oficiales de la facultad.
+</footer>
 
 <div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
   <div class="modal">
@@ -193,6 +238,14 @@
       <button id="btn-pin" class="btn-pin" onclick="togglePin()" style="display:none">📌 Fijar</button>
       <button id="btn-approve" class="btn-approve" onclick="toggleApprove()">Marcar aprobado</button>
     </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="help-bg" onclick="if(event.target===this)closeHelp()">
+  <div class="modal wide">
+    <div class="modal-header"><h3>Cómo usar la malla interactiva</h3><div class="modal-sem">Guía de funciones</div></div>
+    <div class="modal-body" id="help-body" style="max-height:62vh"></div>
+    <div class="modal-footer"><button class="btn-approve" onclick="closeHelp()">Entendido</button></div>
   </div>
 </div>
 
@@ -378,19 +431,92 @@ const IICG = [
   C('i33',10,'Electivo Profesional VI ó Electivo Magíster VI (*)',6,'elec',[], NIICG, {min:180}),
 ];
 
+/* ===================== CONTADOR AUDITOR (malla propia, 1° a 10°) ===================== */
+const N3 = '(3) Se inscribe con la mitad de la cohorte en el primer semestre.';
+const AUDI = [
+  // 1°
+  C('u1', 1,'Gestión y Empresa',6,'adm'),
+  C('u2', 1,'Programación para Analítica de Datos',6,'ti',[], N3),
+  C('u3', 1,'Tecnología y Sistemas de Información',6,'ti',[], N3),
+  C('u4', 1,'Contabilidad',6,'conta'),
+  C('u5', 1,'Métodos Matemáticos I',6,'quant'),
+  C('u6', 1,'Comunicación',2,'lang',[], N3),
+  // 2°
+  C('u7', 2,'Introducción a la Economía',6,'econ'),
+  C('u8', 2,'Fundamentos de Costos',6,'conta',['u4']),
+  C('u9', 2,'Métodos Matemáticos II',6,'quant',['u5']),
+  C('u10',2,'Inglés I',2,'lang'),
+  C('u11',2,'Ética y Negocios',4,'social',['u6']),
+  C('u12',2,'Libre I',2,'elec'),
+  // 3°
+  C('u13',3,'Introducción a la Microeconomía',6,'econ',['u7']),
+  C('u14',3,'Gestión de Riesgos y Control Interno',6,'conta',['u8']),
+  C('u15',3,'Métodos Matemáticos III',6,'quant',['u9']),
+  C('u16',3,'Estadística I',6,'quant',['u5','u1']),
+  C('u17',3,'Inglés II',2,'lang',['u10']),
+  C('u18',3,'Introducción al Pensamiento Económico y Político',4,'social',['u7']),
+  // 4°
+  C('u19',4,'Introducción a la Macroeconomía',6,'econ',['u7','u9']),
+  C('u20',4,'Finanzas',6,'econ',['u9','u4','u16']),
+  C('u21',4,'Razonamiento Basado en Datos',6,'ti',['u2','u3']),
+  C('u22',4,'Contabilidad Financiera',6,'conta',['u4','u15']),
+  C('u23',4,'Estadística II',6,'quant',['u16','u9']),
+  C('u24',4,'Inglés III',2,'lang',['u17']),
+  // 5°
+  C('u25',5,'Sistemas Tributación en la Renta',6,'aud',['u19','u20']),
+  C('u26',5,'Taller de Integración',2,'social',['u20','u21','u23','u15']),
+  C('u27',5,'Métodos Cuantitativos',6,'quant',['u21','u15','u22']),
+  C('u28',5,'Análisis Contable',6,'conta',['u22','u20']),
+  C('u29',5,'Fundamentos de Auditoría',6,'aud',['u14']),
+  C('u30',5,'Inglés IV',2,'lang',['u24']),
+  C('u31',5,'Libre II',2,'elec'),
+  // 6°
+  C('u32',6,'Sistemas de Tributación Tipo Consumo',6,'aud',['u25']),
+  C('u33',6,'Análisis Financiero e Inversiones',6,'econ',['u27','u28']),
+  C('u34',6,'Sistemas de Aplicaciones',6,'ti',['u21']),
+  C('u35',6,'Estrategia y Presupuesto',6,'conta',['u20','u4']),
+  C('u36',6,'Desarrollo de Auditoría',6,'aud',['u29','u26']),
+  C('u37',6,'Inglés V',2,'lang',['u30']),
+  // 7°
+  C('u38',7,'Economía de los Impuestos',6,'aud',['u19','u13']),
+  C('u39',7,'Gestión Financiera Corporativa',6,'econ',['u33']),
+  C('u40',7,'Investigación Operativa',6,'quant',['u21','u15']),
+  C('u41',7,'Auditoría de Tecnología de la Información',6,'aud',['u36','u34']),
+  C('u42',7,'Derecho y Empresa',2,'social',['u18','u11']),
+  C('u43',7,'Libre III',2,'elec'),
+  // 8°
+  C('u44',8,'Gestión Legal Tributaria',6,'aud',['u42']),
+  C('u45',8,'Machine Learning',6,'quant',['u27','u40']),
+  C('u46',8,'Gestión de Procesos de Negocios',6,'ti',['u40']),
+  C('u47',8,'Contabilidad Avanzada',6,'conta',['u28','u39']),
+  C('u48',8,'Control Financiero',6,'conta',['u35']),
+  // 9°
+  C('u49',9,'Curso de Integración Profesional',8,'social',['u44','u45','u46','u47','u48']),
+  C('u50',9,'Electivo Profesional I ó Electivo Magíster I (*)',6,'elec',[], NIICG, {min:180}),
+  C('u51',9,'Electivo Profesional II ó Electivo Magíster II (*)',6,'elec',[], NIICG, {min:180}),
+  C('u52',9,'Electivo Profesional III ó Electivo Magíster III (*)',6,'elec',[], NIICG, {min:180}),
+  C('u53',9,'Electivo Profesional IV ó Electivo Magíster IV (*)',6,'elec',[], NIICG, {min:180}),
+  // 10°
+  C('u54',10,'Práctica Profesional (**)',16,'social',['u49'],
+    '(**) Requisito: mínimo 240 créditos aprobados más el Curso de Integración Profesional.', {min:240}),
+  C('u55',10,'Electivo Profesional V ó Electivo Magíster V (*)',6,'elec',[], NIICG, {min:180}),
+  C('u56',10,'Electivo Profesional VI ó Electivo Magíster VI (*)',6,'elec',[], NIICG, {min:180}),
+];
+
 /* ===================== Estructura ===================== */
 const ECON_ALL = [...ECON, ...ECON_RUTA];
 const ADM_ALL  = [...ADM, ...ADM_RUTA];
-const MEN_ALL  = { econ: ECON_ALL, adm: ADM_ALL, iicg: IICG };
+const MEN_ALL  = { econ: ECON_ALL, adm: ADM_ALL, iicg: IICG, audi: AUDI };
 COMUN.forEach(c => c.men = 'comun');
 ECON_ALL.forEach(c => c.men = 'econ');
 ADM_ALL.forEach(c => c.men = 'adm');
 IICG.forEach(c => c.men = 'iicg');
+AUDI.forEach(c => c.men = 'audi');
 
-const COLOR_MAP = ['econ','adm','quant','lang','elec','ti','social'].reduce((o,k)=>{
+const COLOR_MAP = ['econ','adm','quant','lang','elec','ti','social','conta','aud'].reduce((o,k)=>{
   o[k] = { bg:`var(--c-${k}-bg)`, b:`var(--c-${k}-b)`, t:`var(--c-${k}-t)` }; return o;
 }, {});
-const AREA_LABEL = { econ:'Economía', adm:'Administración', quant:'Cuantitativo', lang:'Idioma / Comunicación', elec:'Electivo / Libre', ti:'TI / Datos', social:'Social / Profesional' };
+const AREA_LABEL = { econ:'Economía', adm:'Administración', quant:'Cuantitativo', lang:'Idioma / Comunicación', elec:'Electivo / Libre', ti:'TI / Datos', social:'Social / Profesional', conta:'Contabilidad', aud:'Auditoría y Tributación' };
 const SOON_TEXT = { audi: 'La malla de Contador Auditor estará disponible muy pronto.' };
 
 let mencion = 'comun';
@@ -399,19 +525,23 @@ let approved = [];
 let pinned = [];   // ramos fijados directamente por el usuario
 let selectedId = null;
 const PIN_STORE = 'malla_fen_pinned';
+let collapsed = [];   // semestres reducidos
+const COL_STORE = 'malla_fen_collapsed';
+let undoStack = [];   // historial para deshacer (máx. 20)
 const STORE = 'malla_fen_v2';
 
-function allCourses() { return [...COMUN, ...ECON_ALL, ...ADM_ALL, ...IICG]; }
+function allCourses() { return [...COMUN, ...ECON_ALL, ...ADM_ALL, ...IICG, ...AUDI]; }
 function getCourses() {
   if (mencion === 'comun') return COMUN;
   if (mencion === 'econ')  return [...COMUN, ...ECON, ...ECON_RUTA.filter(c => c.ruta === ruta)];
   if (mencion === 'adm')   return [...COMUN, ...ADM,  ...ADM_RUTA.filter(c => c.ruta === ruta)];
-  return [...COMUN, ...IICG];
+  if (mencion === 'iicg')  return [...COMUN, ...IICG];
+  return AUDI;
 }
 
 /* Créditos aprobados dentro del alcance del ramo (ciclo básico + su mención) */
 function creditsFor(c) {
-  const list = c.men === 'comun' ? COMUN : [...COMUN, ...MEN_ALL[c.men]];
+  const list = c.men === 'comun' ? COMUN : c.men === 'audi' ? AUDI : [...COMUN, ...MEN_ALL[c.men]];
   return list.filter(x => approved.includes(x.id)).reduce((a, x) => a + x.cred, 0);
 }
 function creditsOk(c) { return !c.min || creditsFor(c) >= c.min; }
@@ -465,6 +595,7 @@ function load() {
   try { pinned = JSON.parse(localStorage.getItem(PIN_STORE) || '[]'); } catch(e) { pinned = []; }
   cleanApproved();
   pinned = pinned.filter(id => approved.includes(id));
+  try { collapsed = JSON.parse(localStorage.getItem(COL_STORE) || '[]'); } catch(e) { collapsed = []; }
 }
 
 /* ---------- Tema ---------- */
@@ -489,7 +620,8 @@ function setMencion(m) {
   mencion = m;
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.m === m));
   document.getElementById('route-row').classList.toggle('show', m === 'econ' || m === 'adm');
-  const soon = (m === 'audi');
+  const soon = false;
+  document.querySelectorAll('.leg-audi').forEach(e => e.style.display = m === 'audi' ? '' : 'none');
   document.getElementById('malla-view').style.display = soon ? 'none' : 'block';
   document.getElementById('soon-view').style.display = soon ? 'block' : 'none';
   if (soon) document.getElementById('soon-text').textContent = SOON_TEXT[m];
@@ -511,21 +643,54 @@ function semLabel(s) {
   return `${s}° Sem · Ciclo Profesional`;
 }
 
+function norm(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+function searchQuery() { const el = document.getElementById('search'); return el ? norm(el.value.trim()) : ''; }
+
+function toggleSem(sem) {
+  const i = collapsed.indexOf(sem);
+  if (i >= 0) collapsed.splice(i, 1); else collapsed.push(sem);
+  try { localStorage.setItem(COL_STORE, JSON.stringify(collapsed)); } catch(e) {}
+  render();
+}
+
 function render() {
   const implied = pinMaps();
   const courses = getCourses();
+  const q = searchQuery();
   const sems = [...new Set(courses.map(c => c.sem))].sort((a,b) => a-b);
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
-  sems.forEach(s => {
+  let matches = 0;
+  sems.forEach(sem => {
+    const isCol = collapsed.includes(sem);
     const col = document.createElement('div');
-    col.className = 'sem-col';
-    col.innerHTML = `<div class="sem-head">${semLabel(s)}</div>`;
-    courses.filter(c => c.sem === s).forEach(c => {
-      const unlocked = isUnlocked(c), isApp = approved.includes(c.id), cl = COLOR_MAP[c.color];
+    col.className = 'sem-col' + (isCol ? ' collapsed' : '');
+    const head = document.createElement('div');
+    head.className = 'sem-head';
+    head.innerHTML = (isCol ? `${sem}°` : semLabel(sem)) + `<span class="chev">${isCol ? '▸' : '▾'}</span>`;
+    head.title = isCol ? 'Clic para expandir' : 'Clic para reducir';
+    head.addEventListener('click', () => toggleSem(sem));
+    col.appendChild(head);
+
+    courses.filter(c => c.sem === sem).forEach(c => {
+      const isApp = approved.includes(c.id);
+      const hit = q && norm(c.name).includes(q);
+      if (hit) matches++;
+      const searchCls = q ? (hit ? ' match' : ' dim') : '';
+
+      if (isCol) {
+        const m = document.createElement('div');
+        m.className = 'mini' + (isApp ? ' done' : '') + searchCls;
+        m.title = c.name;
+        m.addEventListener('click', () => openModal(c.id));
+        col.appendChild(m);
+        return;
+      }
+
+      const unlocked = isUnlocked(c), cl = COLOR_MAP[c.color];
       const dPin = pinned.includes(c.id), iPin = !dPin && !!implied[c.id];
       const el = document.createElement('div');
-      el.className = 'course' + (isApp ? ' approved' : '') + (!unlocked ? ' locked' : '');
+      el.className = 'course' + (isApp ? ' approved' : '') + (!unlocked ? ' locked' : '') + searchCls;
       if (unlocked) { el.style.background = cl.bg; el.style.borderColor = cl.b; }
       const col_t = unlocked ? cl.t : '';
       el.innerHTML = `<div class="cname" style="color:${col_t}">${c.name}</div><div class="ccred" style="color:${col_t}">${c.cred} cr.</div>` +
@@ -536,7 +701,28 @@ function render() {
     });
     grid.appendChild(col);
   });
+  const cnt = document.getElementById('search-count');
+  if (cnt) cnt.textContent = q ? `${matches} resultado${matches === 1 ? '' : 's'}` : '';
   updateStats();
+}
+
+/* ---------- Deshacer ---------- */
+function pushUndo() {
+  undoStack.push({ a: [...approved], p: [...pinned] });
+  if (undoStack.length > 20) undoStack.shift();
+  updateUndo();
+}
+function updateUndo() {
+  const b = document.getElementById('undo-btn');
+  if (!b) return;
+  b.disabled = !undoStack.length;
+  b.textContent = undoStack.length ? `↶ Deshacer (${undoStack.length})` : '↶ Deshacer';
+}
+function undo() {
+  const st = undoStack.pop();
+  if (!st) return;
+  approved = st.a; pinned = st.p;
+  save(); savePins(); render(); updateUndo();
 }
 
 function updateStats() {
@@ -599,6 +785,7 @@ function toggleApprove() {
       err.classList.add('show');
       return;
     }
+    pushUndo();
     approved.push(selectedId);
   } else {
     const impliedMap = pinMaps();
@@ -610,6 +797,7 @@ function toggleApprove() {
       err.classList.add('show');
       return;
     }
+    pushUndo();
     approved.splice(approved.indexOf(selectedId), 1);
     cleanApproved();
   }
@@ -618,14 +806,40 @@ function toggleApprove() {
 
 function togglePin() {
   if (!selectedId || !approved.includes(selectedId)) return;
+  pushUndo();
   const i = pinned.indexOf(selectedId);
   if (i >= 0) pinned.splice(i, 1); else pinned.push(selectedId);
   savePins(); render(); openModal(selectedId);
 }
 
+/* ---------- Guía "Cómo usar" ----------
+   Para documentar una función nueva, agrega un objeto { i: ícono, t: título, d: descripción } a HELP. */
+const HELP = [
+  { i:'🎓', t:'Elige tu carrera', d:'Arriba están las pestañas: Ciclo Básico, Cs. Económicas, Adm. de Empresas, Info. IICG y C. Auditor. El ciclo básico es común a Cs. Económicas, Adm. de Empresas e Info. IICG, así que lo que apruebes ahí se refleja en las tres. Contador Auditor tiene su propia malla y su progreso es independiente.' },
+  { i:'🛣️', t:'Ruta de 9° y 10° semestre', d:'En Cs. Económicas y Adm. de Empresas aparecen, junto a las pestañas, los botones Magíster y Práctica Profesional. Elige la ruta que quieres ver: la malla muestra solo los ramos de esa ruta.' },
+  { i:'✅', t:'Marcar ramos aprobados', d:'Haz clic en un ramo para abrir su detalle y usa "Marcar aprobado". Para quitarlo, entra de nuevo y presiona "Quitar aprobado". Si lo quitas, también se desmarcan los ramos que dependían de él.' },
+  { i:'🔒', t:'Ramos bloqueados', d:'Los ramos en gris con candado aún no se pueden tomar: te faltan prerrequisitos o créditos. Puedes abrirlos para ver qué te falta; si intentas aprobarlos, la página te avisa qué requisito no cumples.' },
+  { i:'📋', t:'Detalle del ramo', d:'Al abrir un ramo ves sus prerrequisitos (✓ si ya los aprobaste, ✗ si no), los créditos necesarios cuando los pide y "Desbloqueas", que lista los ramos que se abren al aprobarlo.' },
+  { i:'📊', t:'Contadores y avance', d:'Arriba ves ramos aprobados, créditos, total de ramos, cuántos tienes disponibles y tu porcentaje de avance en créditos con una barra verde. Todo se calcula para la malla que tienes abierta.' },
+  { i:'📌', t:'Fijar un ramo', d:'Fijar protege un ramo ya aprobado para que el botón Reiniciar no lo borre. Sirve para dejar a salvo lo que de verdad aprobaste mientras pruebas combinaciones. Se hace desde el detalle del ramo, con el botón "📌 Fijar". Si fijas un ramo avanzado, sus prerrequisitos también quedan fijados (se ven con un 📌 más tenue), porque no tendría sentido protegerlo sin ellos. Un ramo fijado no se puede quitar como aprobado: primero hay que desfijarlo con "📌 Desfijar".' },
+  { i:'↺', t:'Reiniciar', d:'Borra los ramos aprobados de la malla que tienes abierta, menos los fijados. Antes pide confirmación y te dice cuántos se borrarán. Ojo: el ciclo básico se comparte entre carreras, así que reiniciarlo también afecta a las demás. Si te arrepientes, usa Deshacer.' },
+  { i:'↶', t:'Deshacer', d:'Revierte tus últimos movimientos, hasta 20 (aprobar, quitar, fijar y reiniciar). El número entre paréntesis indica cuántos pasos puedes devolver. El historial dura mientras la página esté abierta.' },
+  { i:'🔎', t:'Buscar un ramo', d:'Escribe en la barra de búsqueda, por ejemplo "Finanzas" o "Inglés", y se atenúan los demás ramos. Los que coinciden se destacan con un borde y verás cuántos resultados hay. No importan las tildes ni las mayúsculas.' },
+  { i:'▾', t:'Reducir semestres', d:'Haz clic en el nombre de un semestre (lleva una flecha ▾) para reducirlo a una columna angosta con "1°", "2°"… Cada ramo pasa a ser un cuadrito verde si está aprobado y gris si no. Pasa el cursor por un cuadrito para ver su nombre, o haz clic para abrir su detalle. Vuelve a hacer clic en el encabezado para expandirlo.' },
+  { i:'🌓', t:'Modo claro y oscuro', d:'Cambia la apariencia con el botón de arriba a la derecha. La página recuerda tu elección.' },
+  { i:'💾', t:'Guardado de tu progreso', d:'Todo se guarda automáticamente en este navegador: ramos aprobados, fijados, ruta elegida, semestres reducidos y tema. Si cambias de dispositivo o borras los datos del navegador, empiezas de cero.' },
+];
+function openHelp() {
+  document.getElementById('help-body').innerHTML =
+    HELP.map(h => `<div class="help-item"><div class="help-ico">${h.i}</div><div><div class="help-t">${h.t}</div><div class="help-d">${h.d}</div></div></div>`).join('') +
+    '<p class="help-foot">Se irán agregando más funciones. ✨</p>';
+  document.getElementById('help-bg').classList.add('open');
+}
+function closeHelp() { document.getElementById('help-bg').classList.remove('open'); }
+
 /* ---------- Reset (solo la vista activa; respeta los fijados) ---------- */
-const VIEW_NAME = { comun:'Ciclo Básico', econ:'Cs. Económicas', adm:'Adm. de Empresas', iicg:'Info. IICG' };
-function scopeList() { return mencion === 'comun' ? COMUN : [...COMUN, ...MEN_ALL[mencion]]; }
+const VIEW_NAME = { comun:'Ciclo Básico', econ:'Cs. Económicas', adm:'Adm. de Empresas', iicg:'Info. IICG', audi:'Contador Auditor' };
+function scopeList() { return mencion === 'comun' ? COMUN : mencion === 'audi' ? AUDI : [...COMUN, ...MEN_ALL[mencion]]; }
 function resettable() {
   const implied = pinMaps();
   return scopeList().filter(c => approved.includes(c.id) && !pinned.includes(c.id) && !implied[c.id]);
@@ -634,7 +848,7 @@ function openReset() {
   const list = resettable();
   const implied = pinMaps();
   const kept = scopeList().filter(c => approved.includes(c.id) && (pinned.includes(c.id) || implied[c.id])).length;
-  document.getElementById('reset-sub').textContent = VIEW_NAME[mencion] + (mencion === 'comun' ? '' : ' (incluye ciclo básico)');
+  document.getElementById('reset-sub').textContent = VIEW_NAME[mencion] + (mencion === 'comun' || mencion === 'audi' ? '' : ' (incluye ciclo básico)');
   const ok = document.getElementById('btn-reset-ok');
   let html;
   if (!list.length) {
@@ -643,7 +857,7 @@ function openReset() {
   } else {
     html = `<div class="m-row"><span class="m-label">Se quitarán</span><span class="m-val"><strong>${list.length}</strong> ramos aprobados</span></div>
       <div class="m-row"><span class="m-label">Se conservan</span><span class="m-val">${kept} ramos fijados 📌</span></div>
-      <div class="m-row"><span class="m-val" style="text-align:left;color:var(--text2);font-size:12px">Los ramos del ciclo básico se comparten con las demás menciones, y también se quitarán los ramos no fijados que dependan de ellos. Esta acción no se puede deshacer.</span></div>`;
+      <div class="m-row"><span class="m-val" style="text-align:left;color:var(--text2);font-size:12px">${mencion === 'audi' ? '' : 'Los ramos del ciclo básico se comparten con las demás menciones, y también se quitarán los ramos no fijados que dependan de ellos. '}Puedes revertirlo con Deshacer.</span></div>`;
     ok.disabled = false;
   }
   document.getElementById('reset-body').innerHTML = html;
@@ -651,6 +865,7 @@ function openReset() {
 }
 function closeReset() { document.getElementById('reset-bg').classList.remove('open'); }
 function doReset() {
+  pushUndo();
   const ids = new Set(resettable().map(c => c.id));
   approved = approved.filter(id => !ids.has(id));
   cleanApproved();
@@ -658,12 +873,13 @@ function doReset() {
   save(); savePins(); render(); closeReset();
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeReset(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeReset(); closeHelp(); } });
 
 initTheme();
 load();
 syncRutaButtons();
 render();
+updateUndo();
 </script>
 </body>
 </html>
