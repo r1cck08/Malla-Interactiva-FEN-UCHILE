@@ -83,7 +83,7 @@
   .legend { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
   .leg { display:flex; align-items:center; gap:5px; font-size:11.5px; color:var(--text2); background:var(--surface); border:1px solid var(--border); padding:3px 9px; border-radius:20px; }
   .leg-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
-  .undo-btn { margin-left:auto; align-self:center; padding:8px 14px; font-size:12.5px; font-family:inherit; font-weight:500; border-radius:8px; border:1.5px solid var(--border2); background:var(--surface); color:var(--text); cursor:pointer; }
+  .undo-btn { align-self:center; padding:8px 14px; font-size:12.5px; font-family:inherit; font-weight:500; border-radius:8px; border:1.5px solid var(--border2); background:var(--surface); color:var(--text); cursor:pointer; }
   .undo-btn:hover:not(:disabled) { background:var(--surface2); }
   .undo-btn:disabled { opacity:.4; cursor:not-allowed; }
   .hint { font-size:12px; color:var(--text3); margin-bottom:12px; }
@@ -112,6 +112,93 @@
   .help-t { font-size:13px; font-weight:600; margin-bottom:3px; }
   .help-d { font-size:12.5px; color:var(--text2); line-height:1.6; }
   .help-foot { font-size:12px; color:var(--text3); text-align:center; margin-top:10px; }
+  /* --- menú, portal, modo rápido --- */
+  body:not([data-section="malla"]) #tab-row, body:not([data-section="malla"]) #route-row { display:none !important; }
+  .header-left { display:flex; align-items:center; gap:14px; position:relative; }
+  .menu-btn { width:38px; height:38px; font-size:18px; line-height:1; border:1.5px solid rgba(255,255,255,.25); border-radius:10px; background:transparent; color:#fff; cursor:pointer; }
+  .menu-btn:hover { background:rgba(255,255,255,.1); }
+  .menu { display:none; position:absolute; top:100%; left:0; margin-top:10px; background:var(--surface); color:var(--text); border:1px solid var(--border); border-radius:12px; min-width:240px; box-shadow:0 12px 32px rgba(0,0,0,.28); z-index:250; padding:6px; }
+  .menu.open { display:block; }
+  .menu button { display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%; text-align:left; padding:10px 12px; font-size:13.5px; font-family:inherit; border:none; background:transparent; color:var(--text); border-radius:8px; cursor:pointer; }
+  .menu button:hover { background:var(--surface2); }
+  .menu button.cur { font-weight:600; background:var(--surface2); }
+  .menu .soon-tag { font-size:10px; text-transform:uppercase; letter-spacing:.4px; color:var(--text3); }
+  .portal { position:fixed; inset:0; z-index:150; background:var(--bg); display:none; flex-direction:column; align-items:center; justify-content:center; gap:26px; padding:24px; overflow:auto; }
+  .portal h1 { font-size:32px; font-weight:600; letter-spacing:-.5px; text-align:center; }
+  .portal .sub { color:var(--text2); font-size:14px; text-align:center; margin-top:4px; }
+  .portal-cards { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  .portal-card { width:270px; padding:26px 22px; background:var(--surface); border:1px solid var(--border); border-radius:16px; text-align:left; cursor:pointer; font-family:inherit; color:var(--text); transition:transform .15s, box-shadow .15s; }
+  .portal-card:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(0,0,0,.16); }
+  .portal-card .ico { font-size:30px; margin-bottom:10px; }
+  .portal-card .t { font-size:17px; font-weight:600; margin-bottom:5px; }
+  .portal-card .d { font-size:12.5px; color:var(--text2); line-height:1.55; }
+  .portal-top { position:absolute; top:16px; right:16px; display:flex; gap:8px; }
+  .pbtn { padding:7px 14px; font-size:13px; font-family:inherit; font-weight:500; border:1.5px solid var(--border2); border-radius:20px; background:var(--surface); color:var(--text); cursor:pointer; }
+  .pbtn:hover { background:var(--surface2); }
+  .portal-note { max-width:560px; font-size:11.5px; color:var(--text3); text-align:center; line-height:1.6; }
+  .quick-btn { margin-left:auto; align-self:center; padding:8px 14px; font-size:12.5px; font-family:inherit; font-weight:500; border-radius:8px; border:1.5px solid var(--border2); background:var(--surface); color:var(--text); cursor:pointer; }
+  .quick-btn:hover { background:var(--surface2); }
+  .quick-btn.on { background:#2EAD6B; color:#fff; border-color:transparent; }
+
+  /* --- notas --- */
+  .n-wrap { max-width:860px; margin:0 auto; }
+  .n-sembar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .n-pill { padding:7px 14px; font-size:13px; font-family:inherit; border:1px solid var(--border2); border-radius:20px; background:var(--surface); color:var(--text2); cursor:pointer; font-weight:500; }
+  .n-pill.active { background:var(--text); color:var(--bg); border-color:transparent; }
+  .n-pill.add { border-style:dashed; }
+  .n-form { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; align-items:center; }
+  .n-input { padding:7px 10px; font-size:13px; font-family:inherit; background:var(--surface); color:var(--text); border:1px solid var(--border2); border-radius:8px; outline:none; min-width:0; }
+  .n-input:focus { border-color:var(--text2); }
+  .n-input.g { width:80px; text-align:center; }
+  .n-input.w { width:66px; text-align:center; }
+  .btn { padding:8px 14px; font-size:13px; font-family:inherit; font-weight:500; border-radius:8px; border:1.5px solid var(--border2); background:var(--surface); color:var(--text); cursor:pointer; }
+  .btn:hover { background:var(--surface2); }
+  .btn-primary { background:var(--text); color:var(--bg); border-color:transparent; }
+  .btn-primary:hover { background:var(--text); opacity:.85; }
+  .btn-dgr { color:var(--red); border-color:var(--red-b); }
+  .btn-dgr:hover { background:var(--red-bg); }
+  .n-summary { display:flex; gap:16px; flex-wrap:wrap; justify-content:space-between; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px 20px; margin-bottom:18px; }
+  .n-sum-label { font-size:12px; color:var(--text3); text-transform:uppercase; letter-spacing:.5px; }
+  .n-sum-val { font-size:40px; font-weight:600; font-family:'DM Mono',monospace; line-height:1.1; margin:4px 0; }
+  .n-sum-sub { font-size:12px; color:var(--text2); }
+  .t-good { color:var(--green); } .t-bad { color:var(--red); }
+  .n-sum-side { display:flex; flex-direction:column; gap:8px; align-items:flex-start; }
+  .n-listhead { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .n-listhead h3 { font-size:15px; font-weight:600; }
+  .n-ramo { display:flex; justify-content:space-between; align-items:center; gap:12px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; margin-bottom:8px; cursor:pointer; transition:transform .12s, box-shadow .12s; }
+  .n-ramo:hover { transform:translateY(-1px); box-shadow:0 4px 14px rgba(0,0,0,.12); }
+  .n-ramo-name { font-size:14px; font-weight:600; }
+  .n-ramo-meta { font-size:12px; color:var(--text3); margin-top:2px; }
+  .n-ramo-st { font-size:12px; color:var(--text2); margin-top:6px; line-height:1.45; }
+  .n-ramo-grade { font-size:24px; font-weight:600; font-family:'DM Mono',monospace; white-space:nowrap; text-align:right; }
+  .n-ramo-grade small { display:block; font-size:10px; font-weight:400; color:var(--text3); font-family:'DM Sans',sans-serif; }
+  .n-empty { text-align:center; padding:36px 16px; color:var(--text2); border:1px dashed var(--border2); border-radius:14px; background:var(--surface); font-size:13.5px; line-height:1.6; }
+  .n-eval { border:1px solid var(--border); border-radius:12px; padding:12px 14px; margin-bottom:10px; background:var(--surface); }
+  .n-eval-head { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px; }
+  .n-eval-head .name { flex:1; min-width:140px; }
+  .n-chip { font-size:10.5px; text-transform:uppercase; letter-spacing:.4px; padding:3px 8px; border-radius:12px; background:var(--surface2); color:var(--text2); }
+  .n-lab { font-size:12px; color:var(--text2); display:inline-flex; align-items:center; gap:6px; }
+  .n-row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:8px; }
+  .n-items { margin:6px 0 10px; padding-left:10px; border-left:2px solid var(--border2); }
+  .n-item { display:flex; gap:8px; align-items:center; margin-bottom:6px; flex-wrap:wrap; }
+  .n-item .name { flex:1; min-width:110px; }
+  .btn-x { border:none; background:transparent; color:var(--text3); cursor:pointer; font-size:14px; padding:4px 7px; border-radius:6px; }
+  .btn-x:hover { color:var(--red); background:var(--red-bg); }
+  .n-chk { display:flex; align-items:center; gap:7px; font-size:12.5px; color:var(--text2); cursor:pointer; }
+  .n-box { border-radius:10px; padding:11px 13px; font-size:12.5px; line-height:1.55; margin-bottom:10px; border:1px solid var(--border); background:var(--surface2); }
+  .n-box.ok { border-color:var(--green); } .n-box.bad { border-color:var(--red-b); background:var(--red-bg); }
+  .n-big { font-size:28px; font-weight:600; font-family:'DM Mono',monospace; margin-bottom:2px; }
+  .n-big-l { font-size:11px; font-weight:400; color:var(--text3); font-family:'DM Sans',sans-serif; }
+  .n-warn { color:var(--red); font-size:12px; margin-bottom:8px; }
+  .n-ok { color:var(--green); font-size:12px; margin-bottom:8px; }
+  .modal.xl { max-width:700px; }
+  .add-item { display:flex; justify-content:space-between; gap:10px; width:100%; text-align:left; padding:9px 12px; margin-bottom:4px; font-size:13px; font-family:inherit; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--text); cursor:pointer; }
+  .add-item:hover { background:var(--surface2); }
+  .add-cr { color:var(--text3); font-size:12px; white-space:nowrap; font-family:'DM Mono',monospace; }
+  .toast { position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(12px); background:var(--text); color:var(--bg); padding:10px 16px; border-radius:10px; font-size:13px; max-width:min(92vw,520px); text-align:center; line-height:1.4; box-shadow:0 8px 24px rgba(0,0,0,.3); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; z-index:300; }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+  .toast.err { background:var(--red); color:#fff; }
+  kbd { font-family:'DM Mono',monospace; font-size:11px; padding:1px 6px; border:1px solid var(--border2); border-bottom-width:2px; border-radius:5px; background:var(--surface2); color:var(--text); }
   .foot { margin:6px 24px 28px; padding:14px 8px 0; border-top:1px solid var(--border); font-size:12px; line-height:1.6; color:var(--text3); text-align:center; }
 
   .grid { display:flex; gap:10px; overflow-x:auto; padding-bottom:12px; }
@@ -125,7 +212,10 @@
   .course:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,.18); }
   .cname { font-size:11px; font-weight:500; line-height:1.35; padding-right:14px; }
   .ccred { font-size:10px; margin-top:3px; opacity:.7; font-family:'DM Mono',monospace; }
-  .course.approved { opacity:.58; }
+  .course.approved { filter:brightness(.82) saturate(.9); }
+  [data-theme="dark"] .course.approved { filter:brightness(.7) saturate(.9); }
+  .course.approved::after { content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    background:linear-gradient(to top left, transparent calc(50% - 1px), #E53935 calc(50% - 1px), #E53935 calc(50% + 1px), transparent calc(50% + 1px)); }
   .badge { position:absolute; top:5px; right:6px; width:15px; height:15px; border-radius:50%; background:rgba(128,128,128,.35); display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; }
   .course.locked { background:var(--surface2) !important; border-color:var(--border) !important; }
   .course.locked .cname, .course.locked .ccred { color:var(--text3) !important; }
@@ -162,12 +252,20 @@
 <body>
 
 <header>
-  <div>
-    <div class="header-title">FEN UChile — Malla Curricular</div>
-    <div class="header-sub">Malla interactiva · Plan 2026</div>
+  <div class="header-left">
+    <button class="menu-btn" onclick="toggleMenu(event)" title="Menú">☰</button>
+    <div>
+      <div class="header-title" id="hdr-title">FEN UChile — Malla Curricular</div>
+      <div class="header-sub" id="hdr-sub">Malla interactiva · Plan 2026</div>
+    </div>
+    <div class="menu" id="menu">
+      <button data-sec="notas" onclick="setSection('notas')">📝 Notas</button>
+      <button data-sec="malla" onclick="setSection('malla')">🎓 Malla interactiva</button>
+      <button data-sec="horario" onclick="setSection('horario')">🗓️ Horario <span class="soon-tag">próximamente</span></button>
+    </div>
   </div>
   <div class="header-right">
-    <div class="tab-row">
+    <div class="tab-row" id="tab-row">
       <button class="tab active" data-m="comun" onclick="setMencion('comun')">Ciclo Básico</button>
       <button class="tab" data-m="econ" onclick="setMencion('econ')">Cs. Económicas</button>
       <button class="tab" data-m="adm" onclick="setMencion('adm')">Adm. de Empresas</button>
@@ -180,11 +278,11 @@
       <button class="rtab" data-r="pra" onclick="setRuta('pra')">Práctica Profesional</button>
     </div>
     <button class="theme-btn" onclick="openHelp()">❓ Cómo usar</button>
-    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☾ Oscuro</button>
+    <button class="theme-btn theme-lbl" id="theme-btn" onclick="toggleTheme()">☾ Oscuro</button>
   </div>
 </header>
 
-<main>
+<main id="malla-main">
   <div id="malla-view">
     <div class="stats-bar">
       <div class="stat"><div class="stat-n" id="s-aprobados">0</div><div class="stat-l">Aprobados</div></div>
@@ -195,8 +293,9 @@
         <div class="progress-top"><div class="stat-n" id="s-pct">0%</div><div class="stat-l">Avance por créditos</div></div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
       </div>
-      <button class="undo-btn" id="undo-btn" onclick="undo()" disabled>↶ Deshacer</button>
-      <button class="reset-btn" onclick="openReset()">↺ Reiniciar</button>
+      <button class="quick-btn" id="quick-btn" onclick="toggleQuick()" title="Toca un ramo para aprobarlo o quitarlo, sin abrir el detalle">⚡ Modo rápido</button>
+      <button class="undo-btn" id="undo-btn" onclick="undo()" title="Atajo: D" disabled>↶ Deshacer</button>
+      <button class="reset-btn" onclick="openReset()" title="Atajo: R">↺ Reiniciar</button>
     </div>
     <div class="legend">
       <div class="leg"><div class="leg-dot" style="background:var(--c-econ-bg);border:1px solid var(--c-econ-b)"></div>Economía</div>
@@ -212,7 +311,7 @@
     </div>
     <p class="hint">💡 Los ramos en gris están bloqueados por prerrequisitos o por créditos. Haz clic en un ramo para ver detalles, o en el nombre de un semestre para reducirlo.</p>
     <div class="search-row">
-      <input type="search" id="search" class="search-input" placeholder="🔍 Buscar ramo… (ej. Finanzas, Inglés)" oninput="render()" autocomplete="off">
+      <input type="search" id="search" class="search-input" placeholder="🔍 Buscar ramo… (ej. Finanzas, Inglés) · atajo: T" oninput="render()" autocomplete="off">
       <span class="search-count" id="search-count"></span>
     </div>
     <div class="grid" id="grid"></div>
@@ -223,6 +322,27 @@
     <p id="soon-text"></p>
   </div>
 </main>
+
+<main id="notas-main" style="display:none"></main>
+
+<main id="horario-main" style="display:none">
+  <div class="soon-box"><div class="big">Próximamente</div><p>El apartado de Horario estará disponible muy pronto.</p></div>
+</main>
+
+<div class="portal" id="portal">
+  <div class="portal-top">
+    <button class="pbtn" onclick="openHelp()">❓ Cómo usar</button>
+    <button class="pbtn theme-lbl" onclick="toggleTheme()">☾ Oscuro</button>
+  </div>
+  <div style="text-align:center"><h1>FEN UChile</h1><p class="sub">¿Qué quieres hacer hoy?</p></div>
+  <div class="portal-cards">
+    <button class="portal-card" onclick="setSection('notas')"><div class="ico">📝</div><div class="t">Notas</div><div class="d">Registra tus evaluaciones por semestre, calcula tu promedio ponderado por créditos y revisa qué necesitas para aprobar.</div></button>
+    <button class="portal-card" onclick="setSection('malla')"><div class="ico">🎓</div><div class="t">Malla interactiva</div><div class="d">Marca tus ramos aprobados y revisa prerrequisitos, créditos y rutas de las mallas 2026.</div></button>
+  </div>
+  <p class="portal-note">Proyecto independiente creado por un mechón de Ingeniería Comercial (FEN UChile) como herramienta de apoyo para estudiantes, basado en la malla 2026 para revisar prerrequisitos, créditos y rutas. No reemplaza los canales ni certificaciones oficiales de la facultad.</p>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <footer class="foot">
   Proyecto independiente creado por un mechón de Ingeniería Comercial (FEN UChile) como herramienta de apoyo para estudiantes, basado en la malla 2026 para revisar prerrequisitos, créditos y rutas. No reemplaza los canales ni certificaciones oficiales de la facultad.
@@ -241,9 +361,47 @@
   </div>
 </div>
 
+<div class="modal-bg" id="ramo-bg" onclick="if(event.target===this)closeRamo()">
+  <div class="modal xl">
+    <div class="modal-header"><h3 id="ramo-title">Ramo</h3><div class="modal-sem">Evaluaciones y notas</div></div>
+    <div class="modal-body" id="ramo-body" style="max-height:70vh"></div>
+    <div class="modal-footer"><button class="btn-approve" onclick="closeRamo()">Listo</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="add-bg" onclick="if(event.target===this)closeAdd()">
+  <div class="modal wide">
+    <div class="modal-header"><h3>Agregar ramo</h3><div class="modal-sem">Búscalo en el catálogo o créalo a mano</div></div>
+    <div class="modal-body" style="max-height:62vh">
+      <input class="n-input" id="add-q" style="width:100%;margin-bottom:10px" placeholder="🔍 Buscar ramo (ej. Finanzas, Inglés)…" oninput="renderAddResults()" autocomplete="off">
+      <div id="add-results"></div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
+        <div class="n-lab" style="margin-bottom:8px">…o crear uno manualmente</div>
+        <div class="n-form" style="margin-bottom:0">
+          <input class="n-input" id="add-name" style="flex:1;min-width:150px" placeholder="Nombre del ramo">
+          <label class="n-lab">Créditos <input class="n-input w" id="add-cred" value="6"></label>
+          <button class="btn btn-primary" onclick="nAddManual()">Crear</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer"><button onclick="closeAdd()">Cancelar</button></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="cfm-bg" onclick="if(event.target===this)closeCfm()">
+  <div class="modal">
+    <div class="modal-header"><h3 id="cfm-title"></h3></div>
+    <div class="modal-body" id="cfm-body"></div>
+    <div class="modal-footer">
+      <button onclick="closeCfm()">Cancelar</button>
+      <button class="btn-danger" id="cfm-ok">Eliminar</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-bg" id="help-bg" onclick="if(event.target===this)closeHelp()">
   <div class="modal wide">
-    <div class="modal-header"><h3>Cómo usar la malla interactiva</h3><div class="modal-sem">Guía de funciones</div></div>
+    <div class="modal-header"><h3 id="help-title">Cómo usar la malla interactiva</h3><div class="modal-sem">Guía de funciones</div></div>
     <div class="modal-body" id="help-body" style="max-height:62vh"></div>
     <div class="modal-footer"><button class="btn-approve" onclick="closeHelp()">Entendido</button></div>
   </div>
@@ -601,7 +759,7 @@ function load() {
 /* ---------- Tema ---------- */
 function applyTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
-  document.getElementById('theme-btn').textContent = t === 'dark' ? '☀ Claro' : '☾ Oscuro';
+  document.querySelectorAll('.theme-lbl').forEach(b => { b.textContent = t === 'dark' ? '☀ Claro' : '☾ Oscuro'; });
 }
 function toggleTheme() {
   const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -660,11 +818,13 @@ function render() {
   const sems = [...new Set(courses.map(c => c.sem))].sort((a,b) => a-b);
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
+  grid.classList.toggle('quick', quickMode);
   let matches = 0;
   sems.forEach(sem => {
     const isCol = collapsed.includes(sem);
     const col = document.createElement('div');
     col.className = 'sem-col' + (isCol ? ' collapsed' : '');
+    col.dataset.sem = sem;
     const head = document.createElement('div');
     head.className = 'sem-head';
     head.innerHTML = (isCol ? `${sem}°` : semLabel(sem)) + `<span class="chev">${isCol ? '▸' : '▾'}</span>`;
@@ -682,7 +842,8 @@ function render() {
         const m = document.createElement('div');
         m.className = 'mini' + (isApp ? ' done' : '') + searchCls;
         m.title = c.name;
-        m.addEventListener('click', () => openModal(c.id));
+        m.dataset.id = c.id;
+        m.addEventListener('click', () => quickMode ? kbToggleApprove(c.id) : openModal(c.id));
         col.appendChild(m);
         return;
       }
@@ -696,7 +857,8 @@ function render() {
       el.innerHTML = `<div class="cname" style="color:${col_t}">${c.name}</div><div class="ccred" style="color:${col_t}">${c.cred} cr.</div>` +
         (isApp ? '<div class="badge">✓</div>' : '') + (!unlocked ? '<div class="lock-icon">🔒</div>' : '') +
         ((dPin || iPin) ? `<div class="pin-icon${dPin ? '' : ' implied'}">📌</div>` : '');
-      el.addEventListener('click', () => openModal(c.id));
+      el.dataset.id = c.id;
+      el.addEventListener('click', () => quickMode ? kbToggleApprove(c.id) : openModal(c.id));
       col.appendChild(el);
     });
     grid.appendChild(col);
@@ -817,7 +979,7 @@ function togglePin() {
 const HELP = [
   { i:'🎓', t:'Elige tu carrera', d:'Arriba están las pestañas: Ciclo Básico, Cs. Económicas, Adm. de Empresas, Info. IICG y C. Auditor. El ciclo básico es común a Cs. Económicas, Adm. de Empresas e Info. IICG, así que lo que apruebes ahí se refleja en las tres. Contador Auditor tiene su propia malla y su progreso es independiente.' },
   { i:'🛣️', t:'Ruta de 9° y 10° semestre', d:'En Cs. Económicas y Adm. de Empresas aparecen, junto a las pestañas, los botones Magíster y Práctica Profesional. Elige la ruta que quieres ver: la malla muestra solo los ramos de esa ruta.' },
-  { i:'✅', t:'Marcar ramos aprobados', d:'Haz clic en un ramo para abrir su detalle y usa "Marcar aprobado". Para quitarlo, entra de nuevo y presiona "Quitar aprobado". Si lo quitas, también se desmarcan los ramos que dependían de él.' },
+  { i:'✅', t:'Marcar ramos aprobados', d:'Haz clic en un ramo para abrir su detalle y usa "Marcar aprobado". Para quitarlo, entra de nuevo y presiona "Quitar aprobado". Si lo quitas, también se desmarcan los ramos que dependían de él. Los ramos aprobados se ven más oscuros y con una línea roja en diagonal.' },
   { i:'🔒', t:'Ramos bloqueados', d:'Los ramos en gris con candado aún no se pueden tomar: te faltan prerrequisitos o créditos. Puedes abrirlos para ver qué te falta; si intentas aprobarlos, la página te avisa qué requisito no cumples.' },
   { i:'📋', t:'Detalle del ramo', d:'Al abrir un ramo ves sus prerrequisitos (✓ si ya los aprobaste, ✗ si no), los créditos necesarios cuando los pide y "Desbloqueas", que lista los ramos que se abren al aprobarlo.' },
   { i:'📊', t:'Contadores y avance', d:'Arriba ves ramos aprobados, créditos, total de ramos, cuántos tienes disponibles y tu porcentaje de avance en créditos con una barra verde. Todo se calcula para la malla que tienes abierta.' },
@@ -826,12 +988,18 @@ const HELP = [
   { i:'↶', t:'Deshacer', d:'Revierte tus últimos movimientos, hasta 20 (aprobar, quitar, fijar y reiniciar). El número entre paréntesis indica cuántos pasos puedes devolver. El historial dura mientras la página esté abierta.' },
   { i:'🔎', t:'Buscar un ramo', d:'Escribe en la barra de búsqueda, por ejemplo "Finanzas" o "Inglés", y se atenúan los demás ramos. Los que coinciden se destacan con un borde y verás cuántos resultados hay. No importan las tildes ni las mayúsculas.' },
   { i:'▾', t:'Reducir semestres', d:'Haz clic en el nombre de un semestre (lleva una flecha ▾) para reducirlo a una columna angosta con "1°", "2°"… Cada ramo pasa a ser un cuadrito verde si está aprobado y gris si no. Pasa el cursor por un cuadrito para ver su nombre, o haz clic para abrir su detalle. Vuelve a hacer clic en el encabezado para expandirlo.' },
+  { i:'⚡', t:'Modo rápido', d:'Pensado sobre todo para celular o tablet. Actívalo con el botón "⚡ Modo rápido": al tocar un ramo se marca o desmarca como aprobado al instante, sin abrir el detalle. Si el ramo está bloqueado, aparece un aviso corto con lo que te falta. Vuelve a presionar el botón para desactivarlo y recuperar el detalle de cada ramo.' },
+  { i:'☰', t:'Menú y secciones', d:'Con el botón ☰ de la esquina cambias entre Notas, Malla interactiva y Horario (este último llegará pronto). Al abrir la página aparece un portal para elegir por dónde partir.' },
+  { i:'⌨️', t:'Atajos de teclado', d:'En computador puedes usar el teclado. Pon el cursor sobre un ramo y presiona <kbd>A</kbd> para aprobarlo (o desmarcarlo) y <kbd>F</kbd> para fijarlo. Pon el cursor sobre un semestre y presiona <kbd>Shift</kbd> + <kbd>A</kbd> para aprobar todos los ramos disponibles de ese semestre. Además: <kbd>D</kbd> deshacer, <kbd>R</kbd> reiniciar, <kbd>T</kbd> buscar, <kbd>M</kbd> modo claro/oscuro, <kbd>H</kbd> esta guía, <kbd>1</kbd> a <kbd>5</kbd> cambian de malla (Básico, Cs. Económicas, Adm., Info. IICG, Contador Auditor) y <kbd>6</kbd> / <kbd>7</kbd> eligen Magíster o Práctica Profesional.' },
   { i:'🌓', t:'Modo claro y oscuro', d:'Cambia la apariencia con el botón de arriba a la derecha. La página recuerda tu elección.' },
   { i:'💾', t:'Guardado de tu progreso', d:'Todo se guarda automáticamente en este navegador: ramos aprobados, fijados, ruta elegida, semestres reducidos y tema. Si cambias de dispositivo o borras los datos del navegador, empiezas de cero.' },
 ];
 function openHelp() {
+  const isNotas = section === 'notas';
+  document.getElementById('help-title').textContent = isNotas ? 'Cómo usar las Notas' : 'Cómo usar la malla interactiva';
+  const list = isNotas ? HELP_NOTAS : HELP;
   document.getElementById('help-body').innerHTML =
-    HELP.map(h => `<div class="help-item"><div class="help-ico">${h.i}</div><div><div class="help-t">${h.t}</div><div class="help-d">${h.d}</div></div></div>`).join('') +
+    list.map(h => `<div class="help-item"><div class="help-ico">${h.i}</div><div><div class="help-t">${h.t}</div><div class="help-d">${h.d}</div></div></div>`).join('') +
     '<p class="help-foot">Se irán agregando más funciones. ✨</p>';
   document.getElementById('help-bg').classList.add('open');
 }
@@ -873,13 +1041,579 @@ function doReset() {
   save(); savePins(); render(); closeReset();
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeReset(); closeHelp(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeReset(); closeHelp(); closeRamo(); closeAdd(); closeCfm(); closeMenu(); } });
+
+/* ---------- Toast ---------- */
+let toastTimer = null;
+function toast(msg, isErr) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isErr ? ' err' : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.className = 'toast'; }, isErr ? 3600 : 2200);
+}
+
+/* ---------- Atajos de teclado ---------- */
+let hoverId = null, hoverSem = null;
+
+function kbToggleApprove(id) {
+  const c = allCourses().find(x => x.id === id);
+  if (!c) return;
+  if (!approved.includes(id)) {
+    const missing = getMissing(c), short = !creditsOk(c);
+    if (missing.length || short) {
+      const why = [];
+      if (missing.length) why.push('te falta aprobar ' + missing.join(', '));
+      if (short) why.push(`faltan créditos (llevas ${creditsFor(c)} de ${c.min})`);
+      toast(`🔒 ${c.name}: ${why.join(' · ')}`, true);
+      return;
+    }
+    pushUndo();
+    approved.push(id);
+    toast(`✓ ${c.name} aprobado`);
+  } else {
+    const im = pinMaps();
+    if (pinned.includes(id) || im[id]) {
+      toast(`📌 ${c.name} está fijado: desfíjalo primero (tecla F)`, true);
+      return;
+    }
+    pushUndo();
+    approved.splice(approved.indexOf(id), 1);
+    cleanApproved();
+    toast(`${c.name} desmarcado`);
+  }
+  save(); render();
+}
+
+function kbTogglePin(id) {
+  const c = allCourses().find(x => x.id === id);
+  if (!c) return;
+  if (!approved.includes(id)) { toast('📌 Solo puedes fijar ramos que ya están aprobados', true); return; }
+  pushUndo();
+  const i = pinned.indexOf(id);
+  if (i >= 0) { pinned.splice(i, 1); toast(`📌 ${c.name} desfijado`); }
+  else { pinned.push(id); toast(`📌 ${c.name} fijado (y sus prerrequisitos)`); }
+  savePins(); render();
+}
+
+function approveSemester(sem) {
+  const list = getCourses().filter(c => c.sem === sem && !approved.includes(c.id));
+  if (!list.length) { toast(`El ${sem}° semestre ya está aprobado completo`); return; }
+  pushUndo();
+  let done = 0, pending = list, progress = true;
+  while (progress && pending.length) {   // varias pasadas: el conteo de créditos y los requisitos se actualizan al ir aprobando
+    progress = false;
+    const next = [];
+    pending.forEach(c => {
+      if (isUnlocked(c)) { approved.push(c.id); done++; progress = true; } else next.push(c);
+    });
+    pending = next;
+  }
+  if (!done) {
+    undoStack.pop(); updateUndo();
+    toast(`🔒 Ningún ramo del ${sem}° semestre está disponible aún: faltan prerrequisitos o créditos`, true);
+    return;
+  }
+  save(); render();
+  toast(`✓ ${done} ramo${done === 1 ? '' : 's'} aprobado${done === 1 ? '' : 's'} en el ${sem}° semestre` +
+        (pending.length ? ` · ${pending.length} siguen bloqueados` : ''));
+}
+
+const gridEl = document.getElementById('grid');
+gridEl.addEventListener('mouseover', e => {
+  const card = e.target.closest('[data-id]'), col = e.target.closest('.sem-col');
+  hoverId  = card ? card.dataset.id : null;
+  hoverSem = col ? Number(col.dataset.sem) : null;
+});
+gridEl.addEventListener('mouseleave', () => { hoverId = null; hoverSem = null; });
+
+document.getElementById('search').addEventListener('keydown', e => {
+  if (e.key === 'Escape') { e.target.value = ''; e.target.blur(); render(); }
+});
+
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  const tag = (e.target.tagName || '').toLowerCase();
+  if (tag === 'input' || tag === 'textarea' || tag === 'select' || e.target.isContentEditable) return;
+  if (document.querySelector('.modal-bg.open')) return;
+  const k = e.key.toLowerCase();
+  if (section !== 'malla') {   // fuera de la malla solo funcionan H y M
+    if (!e.shiftKey) { if (k === 'h') openHelp(); else if (k === 'm') toggleTheme(); }
+    return;
+  }
+
+  if (e.shiftKey) {
+    if (k === 'a') {
+      e.preventDefault();
+      if (hoverSem == null) toast('Pon el cursor sobre un semestre y presiona Shift + A', true);
+      else approveSemester(hoverSem);
+    }
+    return;
+  }
+
+  const views = { '1':'comun', '2':'econ', '3':'adm', '4':'iicg', '5':'audi' };
+  if (views[k]) { hoverId = null; hoverSem = null; setMencion(views[k]); return; }
+
+  switch (k) {
+    case 'a':
+      if (hoverId) kbToggleApprove(hoverId); else toast('Pon el cursor sobre un ramo y presiona A', true);
+      break;
+    case 'f':
+      if (hoverId) kbTogglePin(hoverId); else toast('Pon el cursor sobre un ramo aprobado y presiona F', true);
+      break;
+    case 'd':
+      if (undoStack.length) { undo(); toast('↶ Movimiento deshecho'); } else toast('No hay nada que deshacer');
+      break;
+    case 'r': openReset(); break;
+    case 't': e.preventDefault(); { const si = document.getElementById('search'); si.focus(); si.select(); } break;
+    case 'm': toggleTheme(); break;
+    case 'h': openHelp(); break;
+    case '6': case '7':
+      if (mencion === 'econ' || mencion === 'adm') {
+        setRuta(k === '6' ? 'mag' : 'pra');
+        toast(k === '6' ? 'Ruta Magíster' : 'Ruta Práctica Profesional');
+      } else toast('La ruta de 9° y 10° solo aplica en Cs. Económicas y Adm. de Empresas', true);
+      break;
+  }
+});
+
+document.querySelectorAll('.tab').forEach((t, i) => { t.title = 'Atajo: ' + (i + 1); });
+document.querySelectorAll('.rtab').forEach((t, i) => { t.title = 'Atajo: ' + (i + 6); });
+
+/* ===================== NOTAS: cálculo ===================== */
+const PASS = 3.95;
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/* Acepta punto o coma. Sin separador: 6 -> 6,0 · 55 -> 5,5 · 552 -> 5,52. Devuelve null (vacío), NaN (inválida) o el número. */
+function parseGrade(raw) {
+  const t = String(raw).trim().replace(/\s+/g, '');
+  if (t === '') return null;
+  let v;
+  if (/^\d+[.,]\d*$/.test(t)) v = parseFloat(t.replace(',', '.'));
+  else if (/^\d+$/.test(t)) {
+    if (t.length === 1) v = parseInt(t, 10);
+    else if (t.length === 2) v = parseInt(t, 10) / 10;
+    else if (t.length === 3) v = parseInt(t, 10) / 100;
+    else return NaN;
+  } else return NaN;
+  v = Math.round(v * 100) / 100;
+  return (v >= 1 && v <= 7) ? v : NaN;
+}
+function fmtG(v) {   // notas ingresadas: 1 decimal, o 2 si hace falta
+  const r = Math.round(v * 100) / 100;
+  return (Math.abs(r * 10 - Math.round(r * 10)) < 1e-9 ? r.toFixed(1) : r.toFixed(2)).replace('.', ',');
+}
+function fmt2(v) { return v.toFixed(2).replace('.', ','); }   // resultados calculados
+function parsePct(raw) {
+  const t = String(raw).trim().replace('%', '').replace(',', '.');
+  if (t === '') return null;
+  const v = parseFloat(t);
+  return (isNaN(v) || v < 0 || v > 100) ? NaN : Math.round(v * 100) / 100;
+}
+function fmtPct(v) { return v == null ? '' : String(Math.round(v * 100) / 100).replace('.', ','); }
+
+function groupValue(e) {
+  const items = e.items || [];
+  const got = items.filter(i => i.grade != null);
+  if (!got.length) return { v: null, complete: false };
+  let v;
+  if (e.mode === 'weighted') {
+    const sw = got.reduce((a, i) => a + (i.weight || 0), 0);
+    v = sw > 0 ? got.reduce((a, i) => a + i.grade * (i.weight || 0), 0) / sw
+               : got.reduce((a, i) => a + i.grade, 0) / got.length;
+  } else v = got.reduce((a, i) => a + i.grade, 0) / got.length;
+  return { v, complete: got.length === items.length };
+}
+function evalValue(e) {
+  if (e.type === 'group') return groupValue(e);
+  return { v: e.grade == null ? null : e.grade, complete: e.grade != null };
+}
+
+/* skipExcl = true: calcula sin las evaluaciones marcadas, repartiendo su porcentaje entre las demás */
+function scenario(c, skipExcl) {
+  const evs = c.evals.filter(e => !(skipExcl && e.excluded));
+  const totalW = evs.reduce((a, e) => a + (e.weight || 0), 0);
+  let doneW = 0, points = 0, failed = null;
+  const pendMins = [];
+  evs.forEach(e => {
+    const { v, complete } = evalValue(e);
+    if (complete) { doneW += e.weight || 0; points += v * (e.weight || 0); }
+    else if (e.min != null) pendMins.push(e.min);
+    if (complete && e.min != null && v < e.min - 1e-9 && !failed) failed = e;
+  });
+  const remW = totalW - doneW;
+  const avgSoFar = doneW > 0 ? points / doneW : null;
+  const finalRaw = (totalW > 0 && remW <= 1e-9) ? points / totalW : null;
+  let current = finalRaw != null ? finalRaw : avgSoFar;
+  if (failed && current != null) current = Math.min(current, 3.9);
+  let status;
+  if (failed) status = 'rep';
+  else if (finalRaw != null) status = finalRaw >= PASS - 1e-9 ? 'apr' : 'rep';
+  else status = 'curso';
+  let needed = null;
+  if (status === 'curso' && totalW > 0 && remW > 1e-9) needed = (PASS * totalW - points) / remW;
+  return { evs, totalW, doneW, remW, points, avgSoFar, finalRaw, current, status, failed, needed, pendMins, hasEvals: totalW > 0 };
+}
+
+function statusText(r) {
+  if (!r.hasEvals) return 'Agrega evaluaciones con su porcentaje para calcular la nota.';
+  if (r.failed) return `Reprobado por nota mínima en «${esc(r.failed.name)}» (mínimo ${fmtG(r.failed.min)}): la nota final queda limitada a 3,9.`;
+  if (r.status === 'apr') return `Aprobado con nota final ${fmt2(r.finalRaw)}.`;
+  if (r.status === 'rep') return `Reprobado con nota final ${fmt2(r.finalRaw)} (se aprueba desde 3,95).`;
+  const restPct = fmtPct(Math.round(r.remW / r.totalW * 1000) / 10);
+  let t = r.avgSoFar != null ? `Promedio de lo ya evaluado: ${fmt2(r.avgSoFar)}. ` : 'Aún no hay evaluaciones con nota. ';
+  if (r.needed <= 1 + 1e-9) t += `Ya aseguras aprobar, aunque saques 1,0 en el ${restPct}% que falta.`;
+  else if (r.needed > 7 + 1e-9) t += `Ya no alcanzas el 3,95: necesitarías ${fmt2(r.needed)} en el ${restPct}% que falta.`;
+  else t += `Necesitas ${fmt2(r.needed)} de promedio en el ${restPct}% que falta para aprobar.`;
+  if (r.pendMins.length) t += ` Ojo: hay una nota mínima pendiente (${fmtG(Math.max(...r.pendMins))}).`;
+  return t;
+}
+
+function semAverage(sem) {
+  let sw = 0, sc = 0, counted = 0, partial = 0;
+  sem.courses.forEach(c => {
+    const r = scenario(c, false);
+    if (r.current != null) {
+      sc += r.current * c.credits; sw += c.credits; counted++;
+      if (r.finalRaw == null && !r.failed) partial++;
+    }
+  });
+  return { avg: sw ? sc / sw : null, credits: sw, counted, partial, total: sem.courses.length };
+}
+
+/* ===================== NOTAS: interfaz ===================== */
+const NOTAS_STORE = 'malla_fen_notas_v1';
+let notas = { semesters: [], current: null };
+let ramoOpen = null, showNewSem = false, addResults = [], cfmAction = null;
+const uid = () => Math.random().toString(36).slice(2, 9);
+
+function loadNotas() {
+  try { const d = JSON.parse(localStorage.getItem(NOTAS_STORE) || 'null'); if (d && Array.isArray(d.semesters)) notas = d; } catch(e) {}
+  if (!notas.semesters.find(x => x.id === notas.current)) notas.current = notas.semesters.length ? notas.semesters[0].id : null;
+}
+function saveNotas() { try { localStorage.setItem(NOTAS_STORE, JSON.stringify(notas)); } catch(e) {} }
+function curSem() { return notas.semesters.find(x => x.id === notas.current) || null; }
+function curRamo() { const s = curSem(); return (s && ramoOpen) ? (s.courses.find(c => c.id === ramoOpen) || null) : null; }
+function gradeCls(r) { return r.status === 'apr' ? 't-good' : r.status === 'rep' ? 't-bad' : ''; }
+
+function renderNotas() {
+  const root = document.getElementById('notas-main');
+  const sem = curSem();
+  let h = '<div class="n-wrap"><div class="n-sembar">';
+  notas.semesters.forEach(x => { h += `<button class="n-pill${x.id === notas.current ? ' active' : ''}" onclick="nSelSem('${x.id}')">${esc(x.name)}</button>`; });
+  h += '<button class="n-pill add" onclick="nToggleNewSem()">＋ Semestre</button></div>';
+
+  if (showNewSem || !notas.semesters.length) {
+    h += `<div class="n-form"><input class="n-input" id="new-sem-name" style="min-width:220px" placeholder="Nombre (ej. Semestre ${notas.semesters.length + 1})" onkeydown="if(event.key==='Enter')nCreateSem()"><button class="btn btn-primary" onclick="nCreateSem()">Crear semestre</button></div>`;
+  }
+
+  if (!sem) {
+    h += '<div class="n-empty">Aún no tienes semestres.<br>Crea el primero para empezar a agregar ramos y notas. Los semestres no están enlazados a la malla, así que puedes armarlos como te acomode (útil si te atrasaste en algún ramo).</div>';
+  } else {
+    const sa = semAverage(sem);
+    const avgCls = sa.avg == null ? '' : sa.avg >= PASS - 1e-9 ? 't-good' : 't-bad';
+    h += `<div class="n-summary">
+      <div><div class="n-sum-label">Promedio del semestre (ponderado por créditos)</div>
+        <div class="n-sum-val ${avgCls}">${sa.avg == null ? '—' : fmt2(sa.avg)}</div>
+        <div class="n-sum-sub">${sa.counted} de ${sa.total} ramos con notas · ${sa.credits} créditos considerados${sa.partial ? ` · ${sa.partial} en curso (promedio parcial)` : ''}</div></div>
+      <div class="n-sum-side">
+        <input class="n-input" value="${esc(sem.name)}" title="Nombre del semestre" onchange="nRenameSem(this.value)">
+        <button class="btn btn-dgr" onclick="nDelSem()">Eliminar semestre</button>
+      </div></div>`;
+    h += '<div class="n-listhead"><h3>Ramos</h3><button class="btn btn-primary" onclick="openAddRamo()">＋ Agregar ramo</button></div>';
+    if (!sem.courses.length) h += '<div class="n-empty">Todavía no hay ramos en este semestre.<br>Usa «Agregar ramo» para buscarlo en el catálogo o crearlo a mano.</div>';
+    sem.courses.forEach(c => {
+      const r = scenario(c, false);
+      const badge = !r.hasEvals ? 'Sin evaluaciones' : r.status === 'apr' ? '✓ Aprobado' : r.status === 'rep' ? '✗ Reprobado' : 'En curso';
+      h += `<div class="n-ramo" onclick="openRamo('${c.id}')">
+        <div><div class="n-ramo-name">${esc(c.name)}</div>
+        <div class="n-ramo-meta">${c.credits} créditos · ${c.evals.length} evaluación${c.evals.length === 1 ? '' : 'es'} · ${badge}</div>
+        <div class="n-ramo-st">${statusText(r)}</div></div>
+        <div class="n-ramo-grade ${gradeCls(r)}">${r.current != null ? fmt2(r.current) : '—'}<small>${r.status === 'curso' && r.current != null ? 'parcial' : r.current != null ? 'final' : ''}</small></div></div>`;
+    });
+  }
+  root.innerHTML = h + '</div>';
+}
+
+/* --- semestres --- */
+function nSelSem(id) { notas.current = id; showNewSem = false; saveNotas(); renderNotas(); }
+function nToggleNewSem() {
+  showNewSem = !showNewSem; renderNotas();
+  if (showNewSem) setTimeout(() => { const i = document.getElementById('new-sem-name'); if (i) i.focus(); }, 0);
+}
+function nCreateSem() {
+  const i = document.getElementById('new-sem-name');
+  const name = (i && i.value.trim()) || `Semestre ${notas.semesters.length + 1}`;
+  const sem = { id: uid(), name, courses: [] };
+  notas.semesters.push(sem); notas.current = sem.id; showNewSem = false;
+  saveNotas(); renderNotas();
+}
+function nRenameSem(v) { const sem = curSem(); if (!sem) return; sem.name = v.trim() || sem.name; saveNotas(); renderNotas(); }
+function nDelSem() {
+  const sem = curSem(); if (!sem) return;
+  askConfirm('¿Eliminar este semestre?', `Se eliminará <strong>${esc(sem.name)}</strong> con sus ${sem.courses.length} ramos y todas sus notas. No se puede deshacer.`, 'Eliminar', () => {
+    notas.semesters = notas.semesters.filter(x => x.id !== sem.id);
+    notas.current = notas.semesters.length ? notas.semesters[0].id : null;
+    saveNotas(); renderNotas();
+  });
+}
+
+/* --- confirmación genérica --- */
+function askConfirm(title, html, okText, fn) {
+  document.getElementById('cfm-title').textContent = title;
+  document.getElementById('cfm-body').innerHTML = `<div class="m-row"><span class="m-val" style="text-align:left">${html}</span></div>`;
+  const ok = document.getElementById('cfm-ok');
+  ok.textContent = okText; cfmAction = fn;
+  ok.onclick = () => { const f = cfmAction; closeCfm(); if (f) f(); };
+  document.getElementById('cfm-bg').classList.add('open');
+}
+function closeCfm() { document.getElementById('cfm-bg').classList.remove('open'); cfmAction = null; }
+
+/* --- agregar ramo --- */
+function catalogList() {
+  const seen = new Map();
+  allCourses().forEach(c => {
+    const name = c.name.replace(/\s*\((\*+|\d+)\)\s*$/, '').trim();
+    const key = norm(name) + '|' + c.cred;
+    if (!seen.has(key)) seen.set(key, { name, cred: c.cred });
+  });
+  return [...seen.values()].sort((a, b) => a.name.localeCompare(b.name, 'es'));
+}
+function openAddRamo() {
+  if (!curSem()) return;
+  document.getElementById('add-q').value = '';
+  document.getElementById('add-name').value = '';
+  document.getElementById('add-cred').value = '6';
+  renderAddResults();
+  document.getElementById('add-bg').classList.add('open');
+  setTimeout(() => document.getElementById('add-q').focus(), 50);
+}
+function closeAdd() { document.getElementById('add-bg').classList.remove('open'); }
+function renderAddResults() {
+  const q = norm(document.getElementById('add-q').value.trim());
+  addResults = catalogList().filter(c => !q || norm(c.name).includes(q)).slice(0, 40);
+  document.getElementById('add-results').innerHTML = addResults.length
+    ? addResults.map((c, i) => `<button class="add-item" onclick="nPickCatalog(${i})"><span>${esc(c.name)}</span><span class="add-cr">${c.cred} cr.</span></button>`).join('')
+    : '<div class="n-empty" style="padding:16px">Sin coincidencias. Puedes crearlo manualmente más abajo.</div>';
+}
+function nPickCatalog(i) { const c = addResults[i]; if (c) addRamo(c.name, c.cred); }
+function nAddManual() {
+  const name = document.getElementById('add-name').value.trim();
+  const cr = parseInt(document.getElementById('add-cred').value, 10);
+  if (!name) { toast('Escribe el nombre del ramo', true); return; }
+  if (!(cr >= 1 && cr <= 30)) { toast('Los créditos deben ser un número entre 1 y 30', true); return; }
+  addRamo(name, cr);
+}
+function addRamo(name, credits) {
+  const sem = curSem(); if (!sem) return;
+  const c = { id: uid(), name, credits, evals: [] };
+  sem.courses.push(c);
+  saveNotas(); closeAdd(); renderNotas(); openRamo(c.id);
+}
+
+/* --- detalle del ramo --- */
+function openRamo(id) { ramoOpen = id; renderRamoModal(); document.getElementById('ramo-bg').classList.add('open'); }
+function closeRamo() {
+  const m = document.getElementById('ramo-bg');
+  if (m.classList.contains('open')) { m.classList.remove('open'); ramoOpen = null; renderNotas(); }
+}
+function nRamoField(field, raw) {
+  const c = curRamo(); if (!c) return;
+  if (field === 'name') c.name = String(raw).trim() || c.name;
+  else { const v = parseInt(raw, 10); if (v >= 1 && v <= 30) c.credits = v; else toast('Los créditos deben ser un número entre 1 y 30', true); }
+  saveNotas(); renderRamoModal(); renderNotas();
+}
+function nDelRamo() {
+  const sem = curSem(), c = curRamo(); if (!c) return;
+  askConfirm('¿Eliminar este ramo?', `Se eliminará <strong>${esc(c.name)}</strong> con todas sus evaluaciones. No se puede deshacer.`, 'Eliminar', () => {
+    sem.courses = sem.courses.filter(x => x.id !== c.id);
+    ramoOpen = null; document.getElementById('ramo-bg').classList.remove('open');
+    saveNotas(); renderNotas();
+  });
+}
+
+function nAddEval(type) {
+  const c = curRamo(); if (!c) return;
+  const used = c.evals.reduce((a, e) => a + (e.weight || 0), 0);
+  const e = { id: uid(), type, name: type === 'group' ? 'Conjunto de notas' : 'Evaluación', weight: Math.max(0, Math.round((100 - used) * 100) / 100), min: null, excluded: false };
+  if (type === 'group') {
+    e.mode = 'avg';
+    e.items = [1, 2, 3].map(n => ({ id: uid(), name: 'Nota ' + n, grade: null, weight: null }));
+  } else e.grade = null;
+  c.evals.push(e);
+  saveNotas(); renderRamoModal(); renderNotas();
+}
+function nDelEv(eid) {
+  const c = curRamo(); if (!c) return;
+  c.evals = c.evals.filter(e => e.id !== eid);
+  saveNotas(); renderRamoModal(); renderNotas();
+}
+function nEv(eid, field, raw) {
+  const c = curRamo(); if (!c) return;
+  const e = c.evals.find(x => x.id === eid); if (!e) return;
+  if (field === 'name') e.name = String(raw).trim() || e.name;
+  else if (field === 'weight') {
+    const v = parsePct(raw);
+    if (Number.isNaN(v)) toast('Porcentaje inválido: usa un número entre 0 y 100', true); else e.weight = v == null ? 0 : v;
+  } else if (field === 'grade' || field === 'min') {
+    const v = parseGrade(raw);
+    if (Number.isNaN(v)) toast('Nota inválida: usa de 1,0 a 7,0 (ej. 5,5 o 55)', true); else e[field] = v;
+  } else if (field === 'excluded') e.excluded = !!raw;
+  else if (field === 'mode') {
+    e.mode = raw;
+    if (raw === 'weighted' && e.items.every(i => i.weight == null)) {
+      const w = Math.round(10000 / e.items.length) / 100;
+      e.items.forEach(i => { i.weight = w; });
+    }
+  }
+  saveNotas(); renderRamoModal(); renderNotas();
+}
+function nAddItem(eid) {
+  const c = curRamo(); if (!c) return;
+  const e = c.evals.find(x => x.id === eid); if (!e) return;
+  e.items.push({ id: uid(), name: 'Nota ' + (e.items.length + 1), grade: null, weight: e.mode === 'weighted' ? 0 : null });
+  saveNotas(); renderRamoModal(); renderNotas();
+}
+function nDelItem(eid, iid) {
+  const c = curRamo(); if (!c) return;
+  const e = c.evals.find(x => x.id === eid); if (!e) return;
+  e.items = e.items.filter(i => i.id !== iid);
+  saveNotas(); renderRamoModal(); renderNotas();
+}
+function nItem(eid, iid, field, raw) {
+  const c = curRamo(); if (!c) return;
+  const e = c.evals.find(x => x.id === eid); if (!e) return;
+  const it = e.items.find(i => i.id === iid); if (!it) return;
+  if (field === 'name') it.name = String(raw).trim() || it.name;
+  else if (field === 'grade') { const v = parseGrade(raw); if (Number.isNaN(v)) toast('Nota inválida: usa de 1,0 a 7,0 (ej. 5,5 o 55)', true); else it.grade = v; }
+  else if (field === 'weight') { const v = parsePct(raw); if (Number.isNaN(v)) toast('Porcentaje inválido: usa un número entre 0 y 100', true); else it.weight = v == null ? 0 : v; }
+  saveNotas(); renderRamoModal(); renderNotas();
+}
+
+function evalHTML(e) {
+  let h = `<div class="n-eval"><div class="n-eval-head">
+    <input class="n-input name" value="${esc(e.name)}" onchange="nEv('${e.id}','name',this.value)">
+    <span class="n-chip">${e.type === 'group' ? 'Conjunto' : 'Individual'}</span>
+    <label class="n-lab">Peso <input class="n-input w" value="${fmtPct(e.weight)}" onchange="nEv('${e.id}','weight',this.value)"> %</label>
+    <button class="btn-x" title="Eliminar evaluación" onclick="nDelEv('${e.id}')">✕</button></div>`;
+  if (e.type === 'group') {
+    const gv = groupValue(e);
+    h += `<div class="n-row"><label class="n-lab">Cómo se promedian
+      <select class="n-input" onchange="nEv('${e.id}','mode',this.value)">
+        <option value="avg"${e.mode !== 'weighted' ? ' selected' : ''}>Promedio simple</option>
+        <option value="weighted"${e.mode === 'weighted' ? ' selected' : ''}>Porcentajes distintos</option></select></label></div>`;
+    h += '<div class="n-items">';
+    e.items.forEach(it => {
+      h += `<div class="n-item"><input class="n-input name" value="${esc(it.name)}" onchange="nItem('${e.id}','${it.id}','name',this.value)">
+        <input class="n-input g" placeholder="Nota" value="${it.grade != null ? fmtG(it.grade) : ''}" onchange="nItem('${e.id}','${it.id}','grade',this.value)">`;
+      if (e.mode === 'weighted') h += `<label class="n-lab"><input class="n-input w" value="${fmtPct(it.weight)}" onchange="nItem('${e.id}','${it.id}','weight',this.value)"> %</label>`;
+      h += `<button class="btn-x" title="Quitar nota" onclick="nDelItem('${e.id}','${it.id}')">✕</button></div>`;
+    });
+    h += `<button class="btn" onclick="nAddItem('${e.id}')">＋ Agregar nota al conjunto</button></div>`;
+    if (e.mode === 'weighted') {
+      const sw = e.items.reduce((a, i) => a + (i.weight || 0), 0);
+      h += Math.abs(sw - 100) < 0.01 ? '<div class="n-ok">Porcentajes internos: 100% ✓</div>'
+        : `<div class="n-warn">Los porcentajes internos suman ${fmtPct(sw)}% (se ajustan proporcionalmente).</div>`;
+    }
+    h += `<div class="n-row"><span class="n-lab">${gv.v != null ? `Promedio del conjunto: <strong>${fmt2(gv.v)}</strong>${gv.complete ? '' : ' (parcial)'}` : 'Promedio del conjunto: —'}</span></div>`;
+  } else {
+    h += `<div class="n-row"><label class="n-lab">Nota <input class="n-input g" placeholder="ej. 5,5" value="${e.grade != null ? fmtG(e.grade) : ''}" onchange="nEv('${e.id}','grade',this.value)"></label></div>`;
+  }
+  h += `<div class="n-row"><label class="n-lab" title="Si sacas menos que esto, repruebas el ramo aunque el promedio alcance">Nota mínima (reprobatorio)
+      <input class="n-input g" placeholder="ej. 3,0" value="${e.min != null ? fmtG(e.min) : ''}" onchange="nEv('${e.id}','min',this.value)"></label>
+    <label class="n-chk"><input type="checkbox" ${e.excluded ? 'checked' : ''} onchange="nEv('${e.id}','excluded',this.checked)"> Necesito aprobar sin esta evaluación primero</label></div></div>`;
+  return h;
+}
+
+function renderRamoModal() {
+  const c = curRamo();
+  const body = document.getElementById('ramo-body');
+  if (!c) return;
+  const keep = body.scrollTop;
+  const r = scenario(c, false);
+  const totalW = c.evals.reduce((a, e) => a + (e.weight || 0), 0);
+  document.getElementById('ramo-title').textContent = c.name;
+  let h = `<div class="n-row"><input class="n-input" style="flex:1;min-width:160px" value="${esc(c.name)}" onchange="nRamoField('name',this.value)">
+    <label class="n-lab">Créditos <input class="n-input w" value="${c.credits}" onchange="nRamoField('credits',this.value)"></label></div>`;
+  h += `<div class="n-box ${r.status === 'apr' ? 'ok' : r.status === 'rep' ? 'bad' : ''}">
+    <div class="n-big ${gradeCls(r)}">${r.current != null ? fmt2(r.current) : '—'} <span class="n-big-l">${r.status === 'curso' ? 'nota actual (parcial)' : 'nota final'}</span></div>
+    <div>${statusText(r)}</div></div>`;
+  const ex = c.evals.filter(e => e.excluded);
+  if (ex.length) {
+    h += `<div class="n-box"><strong>Sin ${ex.map(e => '«' + esc(e.name) + '»').join(', ')}:</strong> ${statusText(scenario(c, true))}</div>`;
+  }
+  if (c.evals.length) {
+    h += Math.abs(totalW - 100) < 0.01 ? '<div class="n-ok">Suma de porcentajes: 100% ✓</div>'
+      : `<div class="n-warn">Los porcentajes suman ${fmtPct(totalW)}% (deberían sumar 100%). Se calcula en proporción a lo ingresado.</div>`;
+  }
+  c.evals.forEach(e => { h += evalHTML(e); });
+  h += `<div class="n-row"><button class="btn btn-primary" onclick="nAddEval('single')">＋ Nota individual</button>
+    <button class="btn" onclick="nAddEval('group')">＋ Conjunto de notas</button></div>`;
+  h += `<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)"><button class="btn btn-dgr" onclick="nDelRamo()">Eliminar ramo</button></div>`;
+  body.innerHTML = h;
+  body.scrollTop = keep;
+}
+
+/* ===================== Guía de Notas ===================== */
+const HELP_NOTAS = [
+  { i:'🗂️', t:'Semestres', d:'Crea un semestre con "＋ Semestre" y agrega ahí tus ramos. Puedes crear tantos como necesites, por ejemplo si te atrasaste en algunos ramos. Los semestres no están enlazados a la malla, así que los armas como te acomode.' },
+  { i:'➕', t:'Agregar un ramo', d:'Usa "Agregar ramo": búscalo en el catálogo (ya trae sus créditos) o créalo a mano con nombre y créditos. No se revisan prerrequisitos, por eso puedes agregar un ramo que tomas junto a su requisito.' },
+  { i:'🧮', t:'Promedio del semestre', d:'Aparece arriba y se pondera por créditos. Ejemplo: un ramo de 4 créditos con 6,0 y otro de 2 créditos con 4,0 dan 5,33 (no 5,0). Si un ramo aún no termina, entra con su promedio parcial.' },
+  { i:'📝', t:'Evaluaciones', d:'Dentro de un ramo agrega "Nota individual" (por ejemplo una solemne con su porcentaje) o "Conjunto de notas" (varias notas que se promedian entre sí y juntas aportan un porcentaje a la nota final). Un conjunto puede promediarse de forma simple o con porcentajes distintos.' },
+  { i:'⌨️', t:'Cómo escribir las notas', d:'Acepta punto o coma, pero siempre se muestra con coma. Si escribes <kbd>6</kbd> queda 6,0; <kbd>55</kbd> queda 5,5; <kbd>552</kbd> queda 5,52. Las notas van de 1,0 a 7,0.' },
+  { i:'🚫', t:'Nota mínima (reprobatorio)', d:'Si una evaluación exige una nota mínima, anótala. Si sacas menos, repruebas el ramo aunque el promedio alcance, y la nota final queda limitada a 3,9.' },
+  { i:'🤝', t:'Aprobar sin esta evaluación primero', d:'Marca esta opción en evaluaciones como los trabajos grupales. Verás una segunda lectura del ramo calculada sin ellas, repartiendo su porcentaje entre las demás, para comprobar que apruebas sin depender de ellas.' },
+  { i:'🎯', t:'Qué necesito para aprobar', d:'Mientras falten evaluaciones, el ramo te dice qué promedio necesitas en lo que falta para llegar al 4,0. Se aprueba desde 3,95, porque se redondea a 4,0.' },
+  { i:'💾', t:'Guardado', d:'Tus semestres, ramos y notas se guardan automáticamente en este navegador. Si cambias de dispositivo o borras los datos del navegador, empiezas de cero.' },
+];
+
+/* ===================== Secciones, menú y modo rápido ===================== */
+let section = 'portal';
+let quickMode = false;
+try { quickMode = localStorage.getItem('malla_fen_quick') === '1'; } catch(e) {}
+
+function toggleMenu(ev) { ev.stopPropagation(); document.getElementById('menu').classList.toggle('open'); }
+function closeMenu() { document.getElementById('menu').classList.remove('open'); }
+document.addEventListener('click', e => { if (!e.target.closest('.header-left')) closeMenu(); });
+
+const SEC_TITLES = {
+  malla:   ['FEN UChile — Malla Curricular', 'Malla interactiva · Plan 2026'],
+  notas:   ['FEN UChile — Notas', 'Calculadora de notas y promedios'],
+  horario: ['FEN UChile — Horario', 'Próximamente'],
+  portal:  ['FEN UChile', 'Herramientas para estudiantes']
+};
+function setSection(name) {
+  section = name;
+  document.body.dataset.section = name;
+  document.getElementById('portal').style.display = name === 'portal' ? 'flex' : 'none';
+  document.getElementById('malla-main').style.display = name === 'malla' ? 'block' : 'none';
+  document.getElementById('notas-main').style.display = name === 'notas' ? 'block' : 'none';
+  document.getElementById('horario-main').style.display = name === 'horario' ? 'block' : 'none';
+  document.getElementById('hdr-title').textContent = SEC_TITLES[name][0];
+  document.getElementById('hdr-sub').textContent = SEC_TITLES[name][1];
+  document.querySelectorAll('#menu button').forEach(b => b.classList.toggle('cur', b.dataset.sec === name));
+  closeMenu();
+  if (name === 'notas') renderNotas();
+  if (name === 'malla') render();
+  window.scrollTo(0, 0);
+}
+
+function syncQuick() { document.getElementById('quick-btn').classList.toggle('on', quickMode); }
+function toggleQuick() {
+  quickMode = !quickMode;
+  try { localStorage.setItem('malla_fen_quick', quickMode ? '1' : '0'); } catch(e) {}
+  syncQuick(); render();
+  toast(quickMode ? '⚡ Modo rápido activado: toca un ramo para aprobarlo o quitarlo' : 'Modo rápido desactivado');
+}
 
 initTheme();
 load();
+loadNotas();
 syncRutaButtons();
+syncQuick();
 render();
 updateUndo();
+setSection('portal');
 </script>
 </body>
 </html>
